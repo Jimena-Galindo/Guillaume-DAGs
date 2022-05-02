@@ -1,0 +1,158 @@
+{{ block title }}
+    Case {{round}}
+{{ endblock }}
+
+
+{{ block content }}
+
+<style>
+    .flex-container {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    td {
+        height: 50px;
+        vertical-align: middle;
+    }
+    .circle_green
+    {
+        border: 1px solid green;
+        padding: 7px 7px;
+        background: green;
+        border-radius: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        width: 1%;
+    }
+
+        .circle_green_off
+    {
+        border: 2px solid green;
+        padding: 7px 7px;
+        border-radius: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        width: 1%;
+    }
+
+       .circle_red
+    {
+        border: 1px solid red;
+        padding: 7px 7px;
+        background: red;
+        border-radius: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        width: 1%;
+    }
+
+
+    .circle_red_off {
+        border: 2px solid red;
+        padding: 7px 7px;
+        border-radius: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        width: 1%;
+    }
+
+        .circle_blue
+    {
+        border: 1px solid blue;
+        padding: 7px 7px;
+        background: blue;
+        border-radius: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        width: 1%;
+    }
+
+
+    .circle_blue_off {
+        border: 2px solid blue;
+        padding: 7px 7px;
+        border-radius: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        width: 1%;
+    }
+</style>
+
+    <div style="background: ghostwhite;
+            font-size: 20px;
+            padding: 10px;
+            border: 2px solid lightgray;
+            margin: 10px;">
+            <h4>Notes:</h4>
+            {{notes}}
+    </div>
+
+<div class="flex-container">
+    <div style="flex-grow: 4">
+        {{table}}
+    </div>
+
+    <div style="flex-grow: 1">
+        <table class="table" style="text-align: center">
+            <th>Sound</th>
+            <tr>
+                <td>
+                    {{formfield 'guess1'}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{formfield 'guess2'}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{formfield 'guess3'}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{formfield 'guess4'}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{formfield 'guess5'}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{formfield 'guess6'}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{formfield 'guess7'}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{formfield 'guess8'}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{formfield 'guess9'}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{formfield 'guess10'}}
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</div>
+
+    {{formfield 'light'}}
+
+    {{ next_button }}
+{{ endblock }}
