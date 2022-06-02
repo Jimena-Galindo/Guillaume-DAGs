@@ -11,6 +11,7 @@ class C(BaseConstants):
     PLAYERS_PER_GROUP = None
     # there must be as many rounds as there are cases in the case_list defined in the instructions page
     NUM_ROUNDS = 2
+    N_trials = 27
 
 
 class Subsession(BaseSubsession):
@@ -26,35 +27,32 @@ class Player(BasePlayer):
     case = models.StringField()
 
 
-
 # FUNCTIONS
-def html_table(case, freq):
+def html_table(case, probs, n):
     # case should be an array of dimensions kxn. k is the number of unique trials and n is n_lights + others + sound
     # frequency should be a vector of size k with each element i equal to the number or repetitions of trial i wanted
     # the total number of trials will be sum(freq)
 
+    draws = np.random.choice([i for i in range(len(case))], size=n, replace=True, p=probs)
+
     # n_lights is the number of lights excluding "others". This can be 2 (Red and Blue) or 3 (Red, Blue, Green)
     n_lights = len(case[0])
 
+    # Create a matrix with the realizations of each row (they are already in a random order because draws is random)
+    h = []
+    for i in range(len(draws)):
+        h.append(case[draws[i]])
+
     # 2 lights: Red, Blue (and Others)
     if n_lights == 4:
-
-        # Add the repetitions for each row
-        h = np.tile(case[0], (freq[0], 1))
-        for i in range(len(freq) - 1):
-            a = np.tile(case[i + 1], (freq[i + 1], 1))
-            h = np.vstack((h, a))
-
-        # Shuffle the rows of html matrix with repeated trials
-        np.random.shuffle(h)
 
         # Translate the binary matrix into a html matrix
         red = []
         blue = []
         sound = []
-        other = ['&#x3f'] * sum(freq)
+        other = ['&#x3f'] * len(draws)
 
-        for i in range(sum(freq)):
+        for i in range(len(draws)):
             # red lights
             if h[i][0] == 1:
                 red.append('<div class="circle_red"></div>')
@@ -79,34 +77,26 @@ def html_table(case, freq):
         table = '<table class="table" style="text-align: center">' \
                 '<tr><th>Red Light</th><th>Blue Light</th><th>Other Lights</th><th>Sound</th></tr>'
 
-        for i in range(sum(freq)):
-            table = table + '<tr><td>' + html_mat[i][0] + '</td>'\
-                                 '<td>' + html_mat[i][1] + '</td>'\
-                                 '<td>' + html_mat[i][2] + '</td>'\
-                                 '<td>' + html_mat[i][3] + '</td></tr>'
+        for i in range(len(draws)):
+            table = table + '<tr><td>' + html_mat[i][0] + '</td>' \
+                                                          '<td>' + html_mat[i][1] + '</td>' \
+                                                                                    '<td>' + html_mat[i][2] + '</td>' \
+                                                                                                              '<td>' + \
+                    html_mat[i][3] + '</td></tr>'
 
         table = table + '</table>'
 
     # 3 lights: Red, Blue, Green (and Others)
     if n_lights == 5:
 
-        # Add the repetitions for each row
-        h = np.tile(case[0], (freq[0], 1))
-        for i in range(len(freq) - 1):
-            a = np.tile(case[i + 1], (freq[i + 1], 1))
-            h = np.vstack((h, a))
-
-        # Shuffle the rows of html matrix with repeated trials
-        np.random.shuffle(h)
-
         # Translate the binary matrix into a html matrix
         red = []
         blue = []
         green = []
         sound = []
-        other = ['&#x3f'] * sum(freq)
+        other = ['&#x3f'] * len(draws)
 
-        for i in range(sum(freq)):
+        for i in range(len(draws)):
             # red lights
             if h[i][0] == 1:
                 red.append('<div class="circle_red"></div>')
@@ -137,12 +127,13 @@ def html_table(case, freq):
         table = '<table class="table" style="text-align: center">' \
                 '<tr><th>Red Light</th><th>Blue Light</th><th>Green Light</th><th>Other Lights</th><th>Sound</th></tr>'
 
-        for i in range(sum(freq)):
-            table = table + '<tr><td>' + html_mat[i][0] + '</td>'\
-                                 '<td>' + html_mat[i][1] + '</td>'\
-                                 '<td>' + html_mat[i][2] + '</td>'\
-                                 '<td>' + html_mat[i][3] + '</td>'\
-                                 '<td>' + html_mat[i][4] + '</td></tr>'
+        for i in range(len(draws)):
+            table = table + '<tr><td>' + html_mat[i][0] + '</td>' \
+                                                          '<td>' + html_mat[i][1] + '</td>' \
+                                                                                    '<td>' + html_mat[i][2] + '</td>' \
+                                                                                                              '<td>' + \
+                    html_mat[i][3] + '</td>' \
+                                     '<td>' + html_mat[i][4] + '</td></tr>'
 
         table = table + '</table>'
 
@@ -161,6 +152,7 @@ class Instructions(Page):
             participant = player.participant
             participant.notes = []
             participant.realized_cases = []
+            # The number of trials for each case is n_trials. It has to be at least 10 for stage 2 to work
 
             # The columns of a case with 2 lights are Red light, Blue light, Other lights, Sound
             case1 = [[1, 1, 1, 0],
@@ -169,20 +161,23 @@ class Instructions(Page):
                      [0, 1, 0, 0],
                      [0, 0, 1, 1],
                      [0, 0, 0, 0]]
-            # the vector freq contains the number of repetitions for each of the rows in case. The length of freq
-            # should be equal to the number of rows in case.
-            # the sum of freq is the number of trials that will be shown to the subject. There must be at least 10.
-            freq1 = [2, 3, 4, 6, 7, 8]
 
-            # The columns of a case with 2 lights are Red light, Blue light, Green light, Other lights, Sound
+            # the vector prob contains the probability that each light is on (Red, Blue and Others or
+            # Red, Blue, Green and others)
+            p = 1/2
+            q = 1/2
+            e = 1/4
+            prob1 = [p*(1-e), p*e, (1-p)*e*q, (1-p)*q*(1-e), (1-p)*(1-q)*e, (1-p)*(1-q)*(1-e)]
+
+            # The columns of a case with 3 lights are Red light, Blue light, Green light, Other lights, Sound
             case2 = [[1, 1, 1, 1, 1],
                      [0, 0, 0, 0, 0]]
-            freq2 = [5, 5]
+            prob2 = [1/2, 1/2]
 
             # bundle each case together with its frequencies and then list all bundles to be used
             # The number of rounds for the subsession must be equal to the number of bundles in this list
-            case_list = [[case1, freq1],
-                         [case2, freq2]]
+            case_list = [[case1, prob1],
+                         [case2, prob2]]
 
             # shuffle the bundles of [case, freq] to determine the order in which they are shown to the participant
             np.random.shuffle(case_list)
@@ -198,7 +193,7 @@ class DAG1(Page):
         r = player.round_number
         participant = player.participant
         case = participant.cases_ordered[r-1]
-        evaluated = html_table(case[0], case[1])
+        evaluated = html_table(case[0], case[1], C.N_trials)
         matrix = evaluated[1]
         player.case = str(matrix)
         realized_cases = participant.realized_cases

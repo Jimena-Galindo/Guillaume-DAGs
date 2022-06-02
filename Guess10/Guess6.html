@@ -1,7 +1,9 @@
-{{ block title }}
-    Case {{round}}
-{{ endblock }}
+{{block title}}
+Case {{round}} (Guess 6)
+{{endblock}}
+
 {{ block content }}
+
 <style>
     .flex-container {
         display: inline-flex;
@@ -76,25 +78,32 @@
         width: 1%;
     }
 </style>
+ <div style="background: ghostwhite;
+            font-size: 20px;
+            padding: 10px;
+            border: 2px solid lightgray;
+            margin: 10px;">
 
-<div class="flex-container">
-    <div style="flex-grow: 1">
-    {{table}}
-
-
+            <h4>Notes:</h4>
+            {{notes}}
     </div>
+<div class="flex-container">
+    <div style="flex-grow: 4">
+        {{table}}
+    </div>
+
+    <div style="flex-grow: 1">
+        <table class="table" style="text-align: center">
+            <tr><th>Sound</th></tr>
+            <tr>
+                <td>
+                    {{formfield 'guess6'}}
+                </td>
+            </tr>
+        </table>
+    </div>
+
 </div>
 
-<div class="flex-container">
-    <div style="flex-grow: 1">
-
-    </div>
-</div>
-
-
-{{formfields}}
-{{ next_button }}
-
+    {{ next_button }}
 {{ endblock }}
-
-

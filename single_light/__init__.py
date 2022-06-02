@@ -137,11 +137,11 @@ class Guess1(Page):
         notes = all_notes[r-1]
         cases = participant.realized_cases
         case = cases[r-1]
-        row = random.sample([i for i in range(len(case))], 1)
+        row = random.sample([i for i in range(len(case))], 1)[0]
 
         case_1 = case[row]
 
-        n_lights = len(case_1[0])
+        n_lights = len(case_1)
 
         player.row = str(case_1)
 
@@ -150,19 +150,12 @@ class Guess1(Page):
         light_list = participant.light_list
         show_light = light_list[r - 1]
 
-        evaluated = html_table(case_1[0], show_light)
+        evaluated = html_table(case_1, show_light)
 
         return dict(notes=notes, table=evaluated, lights=n_lights, round=r)
 
     form_model = 'player'
     form_fields = ['guess']
-
-    @staticmethod
-    def before_next_page(player: Player, timeout_happened):
-        if player.guess == [int(s) for s in player.row1[1:-1].split(' ')][-1]:
-            player.correct = 1
-        else:
-            player.correct = 0
 
 
 class ResultsWaitPage(WaitPage):

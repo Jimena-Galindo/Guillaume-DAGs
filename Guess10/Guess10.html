@@ -1,14 +1,13 @@
-{{ block title }}
-    Case {{round}}
-{{ endblock }}
-
+{{block title}}
+Case {{round}} (Guess 10)
+{{endblock}}
 
 {{ block content }}
 
 <style>
     .flex-container {
         display: inline-flex;
-        align-items: center;
+        align-items: flex-start;
         justify-content: center;
     }
 
@@ -79,16 +78,15 @@
         width: 1%;
     }
 </style>
-
-    <div style="background: ghostwhite;
+ <div style="background: ghostwhite;
             font-size: 20px;
             padding: 10px;
             border: 2px solid lightgray;
             margin: 10px;">
+
             <h4>Notes:</h4>
             {{notes}}
     </div>
-
 <div class="flex-container">
     <div style="flex-grow: 4">
         {{table}}
@@ -96,52 +94,7 @@
 
     <div style="flex-grow: 1">
         <table class="table" style="text-align: center">
-            <th>Sound</th>
-            <tr>
-                <td>
-                    {{formfield 'guess1'}}
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    {{formfield 'guess2'}}
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    {{formfield 'guess3'}}
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    {{formfield 'guess4'}}
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    {{formfield 'guess5'}}
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    {{formfield 'guess6'}}
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    {{formfield 'guess7'}}
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    {{formfield 'guess8'}}
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    {{formfield 'guess9'}}
-                </td>
-            </tr>
+            <tr><th>Sound</th></tr>
             <tr>
                 <td>
                     {{formfield 'guess10'}}
@@ -151,8 +104,6 @@
     </div>
 
 </div>
-
-    {{formfield 'light'}}
 
     {{ next_button }}
 {{ endblock }}
