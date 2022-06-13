@@ -1,22 +1,13 @@
-{{ block title }}
-    Case {{round}}
-{{ endblock }}
+
 {{ block content }}
 <style>
-    .flex-container {
-        display: inline-flex;
-        align-items: flex-start;
-        justify-content: center;
-    }
-
-    td {
-        height: 50px;
-        vertical-align: middle;
+     .otree-body {
+        max-width:80%
     }
     .circle_green
     {
         border: 1px solid green;
-        padding: 7px 7px;
+        padding: 6px 6px;
         background: green;
         border-radius: 100%;
         margin-left: auto;
@@ -27,7 +18,7 @@
         .circle_green_off
     {
         border: 2px solid green;
-        padding: 7px 7px;
+        padding: 6px 6px;
         border-radius: 100%;
         margin-left: auto;
         margin-right: auto;
@@ -37,7 +28,7 @@
        .circle_red
     {
         border: 1px solid red;
-        padding: 7px 7px;
+        padding: 6px 6px;
         background: red;
         border-radius: 100%;
         margin-left: auto;
@@ -48,7 +39,7 @@
 
     .circle_red_off {
         border: 2px solid red;
-        padding: 7px 7px;
+        padding: 6px 6px;
         border-radius: 100%;
         margin-left: auto;
         margin-right: auto;
@@ -58,7 +49,7 @@
         .circle_blue
     {
         border: 1px solid blue;
-        padding: 7px 7px;
+        padding: 6px 6px;
         background: blue;
         border-radius: 100%;
         margin-left: auto;
@@ -69,7 +60,7 @@
 
     .circle_blue_off {
         border: 2px solid blue;
-        padding: 7px 7px;
+        padding: 6px 6px;
         border-radius: 100%;
         margin-left: auto;
         margin-right: auto;
@@ -77,23 +68,19 @@
     }
 </style>
 
-<div class="flex-container">
-    <div style="flex-grow: 1">
-    {{table}}
+<table class="table" style="width: 100%; border: 0; border-collapse: collapse" >
+
+    <tr>
+        <td style="width: 30%"><h2>Case {{round}}:</h2>
+            {{formfields}}{{ next_button }}
+        </td>
+        <td style="width: 60%; padding: 0"> {{table}}  </td>
+    </tr>
+
+</table>
 
 
-    </div>
-</div>
 
-<div class="flex-container">
-    <div style="flex-grow: 1">
-
-    </div>
-</div>
-
-
-{{formfields}}
-{{ next_button }}
 
 {{ endblock }}
 

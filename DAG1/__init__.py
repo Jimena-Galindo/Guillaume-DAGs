@@ -78,7 +78,7 @@ def html_table(case, probs, n):
                 '<tr><th>Red Light</th><th>Blue Light</th><th>Other Lights</th><th>Sound</th></tr>'
 
         for i in range(len(draws)):
-            table = table + '<tr><td>' + html_mat[i][0] + '</td>' \
+            table = table + '<tr style="height: 20pt; font-size: 12px"><td>' + html_mat[i][0] + '</td>' \
                                                           '<td>' + html_mat[i][1] + '</td>' \
                                                                                     '<td>' + html_mat[i][2] + '</td>' \
                                                                                                               '<td>' + \
@@ -162,8 +162,7 @@ class Instructions(Page):
                      [0, 0, 1, 1],
                      [0, 0, 0, 0]]
 
-            # the vector prob contains the probability that each light is on (Red, Blue and Others or
-            # Red, Blue, Green and others)
+            # the vector prob contains the probability that each row of the case is realized.
             p = 1/2
             q = 1/2
             e = 1/4

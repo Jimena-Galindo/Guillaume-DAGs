@@ -1,19 +1,8 @@
-{{block title}}
-Case {{round}} (Guess 5)
-{{endblock}}
-
 {{ block content }}
 
 <style>
-    .flex-container {
-        display: inline-flex;
-        align-items: flex-start;
-        justify-content: center;
-    }
-
-    td {
-        height: 50px;
-        vertical-align: middle;
+     .otree-body {
+        max-width:80%
     }
     .circle_green
     {
@@ -78,32 +67,36 @@ Case {{round}} (Guess 5)
         width: 1%;
     }
 </style>
- <div style="background: ghostwhite;
+
+
+    <table class="table" style="width: 100%; border: 0; border-collapse: collapse; margin: auto; padding: 20px" >
+
+    <tr>
+        <td style="width: 40%"><h2>Case {{round}}(Guess 5):</h2>
+
+            <p></p>
+            <div style="background: ghostwhite;
             font-size: 20px;
+            width: 90%;
             padding: 10px;
             border: 2px solid lightgray;
             margin: 10px;">
 
             <h4>Notes:</h4>
             {{notes}}
-    </div>
-<div class="flex-container">
-    <div style="flex-grow: 4">
-        {{table}}
-    </div>
-
-    <div style="flex-grow: 1">
-        <table class="table" style="text-align: center">
-            <tr><th>Sound</th></tr>
-            <tr>
-                <td>
-                    {{formfield 'guess5'}}
-                </td>
-            </tr>
-        </table>
-    </div>
-
 </div>
+            {{ next_button }}
+        </td>
+        <td style="width: 40%; padding: 0"> {{table}}  </td>
+        <td style="width: 10%; padding: 0">
+            <table class="table"> <tr><th>Sound</th></tr>
+                <tr><td>{{formfield 'guess5'}} </td></tr></table>
+        </td>
+    </tr>
 
-    {{ next_button }}
+</table>
+
+
+
 {{ endblock }}
+

@@ -93,7 +93,7 @@ def html_table(row, n_lights):
         html_mat = np.column_stack((red, blue, other))
 
         # Write out the html table code
-        table = '<table class="table" style="text-align: center">' \
+        table = '<table class="table" style="text-align: center; vertical-align:middle">' \
             '<tr><th>Red Light</th><th>Blue Light</th><th>Other Lights</th></tr><tr height="95px"><td>' \
                 + html_mat[0][0] + '</td><td>' + html_mat[0][1] + '</td><td>' + html_mat[0][2] + '</td></tr></table>'
 
@@ -129,7 +129,7 @@ def html_table(row, n_lights):
         # Write out the html table code
         table = '<table class="table" style="text-align: center">' \
             '<tr><th>Red Light</th><th>Blue Light</th><th>Green Light</th><th>Other Lights</th></tr>'\
-            '<tr height="95px"><td>' + html_mat[0][0] + '</td><td>' + html_mat[0][1] + '</td><td>' + html_mat[0][2] + \
+            '<tr height="95px; vertical-align:middle"><td>' + html_mat[0][0] + '</td><td>' + html_mat[0][1] + '</td><td>' + html_mat[0][2] + \
                 '</td><td>' + html_mat[0][3] + '</td></tr></table>'
 
     return table
