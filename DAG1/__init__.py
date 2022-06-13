@@ -78,7 +78,7 @@ def html_table(case, probs, n):
                 '<tr><th>Red Light</th><th>Blue Light</th><th>Other Lights</th><th>Sound</th></tr>'
 
         for i in range(len(draws)):
-            table = table + '<tr style="height: 20pt; font-size: 12px"><td>' + html_mat[i][0] + '</td>' \
+            table = table + '<tr style="height: 25px; font-size: 12px"><td>' + html_mat[i][0] + '</td>' \
                                                           '<td>' + html_mat[i][1] + '</td>' \
                                                                                     '<td>' + html_mat[i][2] + '</td>' \
                                                                                                               '<td>' + \
@@ -128,7 +128,7 @@ def html_table(case, probs, n):
                 '<tr><th>Red Light</th><th>Blue Light</th><th>Green Light</th><th>Other Lights</th><th>Sound</th></tr>'
 
         for i in range(len(draws)):
-            table = table + '<tr><td>' + html_mat[i][0] + '</td>' \
+            table = table + '<tr style="height: 25px; font-size: 12px"><td>' + html_mat[i][0] + '</td>' \
                                                           '<td>' + html_mat[i][1] + '</td>' \
                                                                                     '<td>' + html_mat[i][2] + '</td>' \
                                                                                                               '<td>' + \
