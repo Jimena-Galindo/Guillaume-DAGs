@@ -152,7 +152,8 @@ class Instructions(Page):
             participant = player.participant
             participant.notes = []
             participant.realized_cases = []
-            # The number of trials for each case is n_trials. It has to be at least 10 for stage 2 to work
+            # The number of trials for each case is n_trials defined in the subsession variables.
+            # It has to be at least 10 for stage 2 to work.
 
             # The columns of a case with 2 lights are Red light, Blue light, Other lights, Sound
             case1 = [[1, 1, 1, 0],
@@ -162,15 +163,23 @@ class Instructions(Page):
                      [0, 0, 1, 1],
                      [0, 0, 0, 0]]
 
-            # the vector prob contains the probability that each row of the case is realized.
+            # p is the probability that the red light is on, q is the same for the blue light and e is for other lights
             p = 1/2
             q = 1/2
             e = 1/4
+
+            # the vector prob1 has the probabilities that each row of the case is realized.
             prob1 = [p*(1-e), p*e, (1-p)*e*q, (1-p)*q*(1-e), (1-p)*(1-q)*e, (1-p)*(1-q)*(1-e)]
 
             # The columns of a case with 3 lights are Red light, Blue light, Green light, Other lights, Sound
             case2 = [[1, 1, 1, 1, 1],
                      [0, 0, 0, 0, 0]]
+
+            # p =
+            # q =
+            # r =
+            # e =
+
             prob2 = [1/2, 1/2]
 
             # bundle each case together with its frequencies and then list all bundles to be used
