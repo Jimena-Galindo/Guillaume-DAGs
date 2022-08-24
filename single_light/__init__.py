@@ -45,6 +45,7 @@ def html_table(case, light):
 
     # 2 lights: Red, Blue (and Others). The case matrix has 4 columns
     if n_lights == 4:
+        # Only show the selected light
         if light == 1:
             blue = ['&#x3f']
             other = ['&#x3f']
@@ -135,6 +136,7 @@ class Guess1(Page):
         participant = player.participant
         all_notes = participant.notes
         notes = all_notes[r-1]
+        # get the case corresponding to the round and sample only one row at random
         cases = participant.realized_cases
         case = cases[r-1]
         row = random.sample([i for i in range(len(case))], 1)[0]
@@ -142,11 +144,12 @@ class Guess1(Page):
         case_1 = case[row]
 
         n_lights = len(case_1)
-
+        # save the row sampled as a string for the player
         player.row = str(case_1)
 
         player.n_lights = n_lights
 
+        # get the light that they chose in the previous stage
         light_list = participant.light_list
         show_light = light_list[r - 1]
 
