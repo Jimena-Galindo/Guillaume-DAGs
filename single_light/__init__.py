@@ -162,7 +162,7 @@ class Guess1(Page):
         # check if the guess was right and add one point to player payoff if it was
         row = player.row[1:-1]
         row = [int(s) for s in row.split(',')]
-        if player.guess1 == row[-1]:
+        if player.guess == row[-1]:
             player.payoff += 1
 
 
