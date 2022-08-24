@@ -74,8 +74,14 @@
 <table class="table" style="width: 100%; border: 0; border-collapse: collapse" >
 
     <tr>
-        <td style="width: 40%"><h2>Case {{round}}:</h2>
-            {{formfields}}{{ next_button }}
+        <td style="width: 30%"><h2>Case {{round}}:</h2>
+            {{formfields}}
+            <script>
+                for (let ele of document.getElementsByTagName('textarea')) {
+                    ele.rows = 15;
+                    }
+            </script>
+            {{ next_button }}
         </td>
         <td style="width: 50%; padding: 0"> {{table}}  </td>
     </tr>

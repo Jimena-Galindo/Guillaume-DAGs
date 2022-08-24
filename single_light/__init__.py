@@ -157,6 +157,14 @@ class Guess1(Page):
     form_model = 'player'
     form_fields = ['guess']
 
+    @staticmethod
+    def before_next_page(player: Player, timeout_happened):
+        # check if the guess was right and add one point to player payoff if it was
+        row = player.row[1:-1]
+        row = [int(s) for s in row.split(',')]
+        if player.guess1 == row[-1]:
+            player.payoff += 1
+
 
 class ResultsWaitPage(WaitPage):
     pass

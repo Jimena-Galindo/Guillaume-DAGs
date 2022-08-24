@@ -67,7 +67,7 @@ def html_table(case, probs, n):
 
             # sound
             if h[i][3] == 1:
-                sound.append('&#x266A; DING &#x266A;')
+                sound.append('<b>&#x266A; DING &#x266A;</b>')
             else:
                 sound.append('NO DING')
 
@@ -117,7 +117,7 @@ def html_table(case, probs, n):
 
             # sound
             if h[i][3] == 1:
-                sound.append('&#x266A; DING &#x266A;')
+                sound.append('<b>&#x266A; DING &#x266A;</b>')
             else:
                 sound.append('NO DING')
 
@@ -200,11 +200,15 @@ class DAG1(Page):
     def vars_for_template(player: Player):
         r = player.round_number
         participant = player.participant
+        # get the case corresponding to the round
         case = participant.cases_ordered[r-1]
+        # get the html code for the table (this part also generates the repetitions of each row)
         evaluated = html_table(case[0], case[1], C.N_trials)
         matrix = evaluated[1]
+        # save the case matrix as a string for the player. The cases are also saves as matrices at the participant level
         player.case = str(matrix)
         realized_cases = participant.realized_cases
+        # this saves the realized cases (ordered and with the repeated rows as a list of matrices)
         realized_cases.append(matrix)
         participant.realized_cases = realized_cases
 
@@ -212,6 +216,7 @@ class DAG1(Page):
 
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
+        # save all the notes at articipant level to pass them to the next stage
         participant = player.participant
         all_notes = participant.notes
         all_notes.append(player.notes)
