@@ -50,20 +50,15 @@ class Player(BasePlayer):
 
     n_correct = models.IntegerField(initial=0)
 
-    light = models.IntegerField(label="Which light would you like to see for this case in part 3?",
-                                widget=widgets.RadioSelectHorizontal)
+    light1 = models.IntegerField(label="Which light would you like to see for this case in part 3?",
+                                 widget=widgets.RadioSelectHorizontal,
+                                 choices=[[1, 'Red'], [2, 'Blue']])
+    light2 = models.IntegerField(label="Which light would you like to see for this case in part 3?",
+                                 widget=widgets.RadioSelectHorizontal,
+                                 choices=[[1, 'Red'], [2, 'Blue'], [3, 'Green']])
 
 
 # FUNCTIONS
-# Determine the lights that can be chosen in stage 2
-def light_choices(player):
-    if player.n_lights == 4:
-        choices = [[1, 'Red'], [2, 'Blue']]
-    else:
-        choices = [[1, 'Red'], [2, 'Blue'], [3, 'Green']]
-    return choices
-
-
 # translate each case to html table
 def html_table(row, n_lights):
     # case should be an array of dimensions kxn. k is the number of unique trials and n is n_lights + others + sound
@@ -186,9 +181,8 @@ class Guess1(Page):
         player.row9 = str(case_10[8])
         player.row10 = str(case_10[9])
 
-        # The rows were saved as strings in the case variable. The next lines turn them into a list
-        row = player.row1[1:-1]
-        row = [int(s) for s in row.split(',')]
+        row = [int(s) for s in case_10[0]]
+
         # pass the row to the function that prints out the html
         evaluated = html_table(row, n_lights)
 
@@ -198,9 +192,10 @@ class Guess1(Page):
     def before_next_page(player: Player, timeout_happened):
         # check if the guess was right and add one point to player payoff if it was
         row = player.row1[1:-1]
-        row = [int(s) for s in row.split(',')]
+        row = [int(s) for s in row.split(' ')]
         if player.guess1 == row[-1]:
             player.payoff += 1
+
 
 class Guess2(Page):
     form_model = 'player'
@@ -214,7 +209,7 @@ class Guess2(Page):
         notes = all_notes[r-1]
 
         row = player.row2[1:-1]
-        row = [int(s) for s in row.split(',')]
+        row = [int(s) for s in row.split(' ')]
 
         evaluated = html_table(row, player.n_lights)
 
@@ -224,9 +219,10 @@ class Guess2(Page):
     def before_next_page(player: Player, timeout_happened):
         # check if the guess was right
         row = player.row2[1:-1]
-        row = [int(s) for s in row.split(',')]
+        row = [int(s) for s in row.split(' ')]
         if player.guess2 == row[-1]:
             player.payoff += 1
+
 
 class Guess3(Page):
     form_model = 'player'
@@ -240,7 +236,7 @@ class Guess3(Page):
         notes = all_notes[r-1]
 
         row = player.row3[1:-1]
-        row = [int(s) for s in row.split(',')]
+        row = [int(s) for s in row.split(' ')]
 
         evaluated = html_table(row, player.n_lights)
 
@@ -250,9 +246,10 @@ class Guess3(Page):
     def before_next_page(player: Player, timeout_happened):
         # check if the guess was right
         row = player.row3[1:-1]
-        row = [int(s) for s in row.split(',')]
+        row = [int(s) for s in row.split(' ')]
         if player.guess3 == row[-1]:
             player.payoff += 1
+
 
 class Guess4(Page):
     form_model = 'player'
@@ -266,7 +263,7 @@ class Guess4(Page):
         notes = all_notes[r-1]
 
         row = player.row4[1:-1]
-        row = [int(s) for s in row.split(',')]
+        row = [int(s) for s in row.split(' ')]
 
         evaluated = html_table(row, player.n_lights)
 
@@ -276,9 +273,10 @@ class Guess4(Page):
     def before_next_page(player: Player, timeout_happened):
         # check if the guess was right
         row = player.row4[1:-1]
-        row = [int(s) for s in row.split(',')]
+        row = [int(s) for s in row.split(' ')]
         if player.guess4 == row[-1]:
             player.payoff += 1
+
 
 class Guess5(Page):
     form_model = 'player'
@@ -292,7 +290,7 @@ class Guess5(Page):
         notes = all_notes[r-1]
 
         row = player.row5[1:-1]
-        row = [int(s) for s in row.split(',')]
+        row = [int(s) for s in row.split(' ')]
 
         evaluated = html_table(row, player.n_lights)
 
@@ -302,9 +300,10 @@ class Guess5(Page):
     def before_next_page(player: Player, timeout_happened):
         # check if the guess was right
         row = player.row5[1:-1]
-        row = [int(s) for s in row.split(',')]
+        row = [int(s) for s in row.split(' ')]
         if player.guess5 == row[-1]:
             player.payoff += 1
+
 
 class Guess6(Page):
     form_model = 'player'
@@ -318,7 +317,7 @@ class Guess6(Page):
         notes = all_notes[r-1]
 
         row = player.row6[1:-1]
-        row = [int(s) for s in row.split(',')]
+        row = [int(s) for s in row.split(' ')]
 
         evaluated = html_table(row, player.n_lights)
 
@@ -328,9 +327,10 @@ class Guess6(Page):
     def before_next_page(player: Player, timeout_happened):
         # check if the guess was right
         row = player.row6[1:-1]
-        row = [int(s) for s in row.split(',')]
+        row = [int(s) for s in row.split(' ')]
         if player.guess6 == row[-1]:
             player.payoff += 1
+
 
 class Guess7(Page):
     form_model = 'player'
@@ -344,7 +344,7 @@ class Guess7(Page):
         notes = all_notes[r-1]
 
         row = player.row7[1:-1]
-        row = [int(s) for s in row.split(',')]
+        row = [int(s) for s in row.split(' ')]
 
         evaluated = html_table(row, player.n_lights)
 
@@ -354,9 +354,10 @@ class Guess7(Page):
     def before_next_page(player: Player, timeout_happened):
         # check if the guess was right
         row = player.row7[1:-1]
-        row = [int(s) for s in row.split(',')]
+        row = [int(s) for s in row.split(' ')]
         if player.guess7 == row[-1]:
             player.payoff += 1
+
 
 class Guess8(Page):
     form_model = 'player'
@@ -370,7 +371,7 @@ class Guess8(Page):
         notes = all_notes[r-1]
 
         row = player.row8[1:-1]
-        row = [int(s) for s in row.split(',')]
+        row = [int(s) for s in row.split(' ')]
 
         evaluated = html_table(row, player.n_lights)
 
@@ -380,9 +381,10 @@ class Guess8(Page):
     def before_next_page(player: Player, timeout_happened):
         # check if the guess was right
         row = player.row8[1:-1]
-        row = [int(s) for s in row.split(',')]
+        row = [int(s) for s in row.split(' ')]
         if player.guess8 == row[-1]:
             player.payoff += 1
+
 
 class Guess9(Page):
     form_model = 'player'
@@ -396,7 +398,7 @@ class Guess9(Page):
         notes = all_notes[r-1]
 
         row = player.row9[1:-1]
-        row = [int(s) for s in row.split(',')]
+        row = [int(s) for s in row.split(' ')]
 
         evaluated = html_table(row, player.n_lights)
 
@@ -406,9 +408,10 @@ class Guess9(Page):
     def before_next_page(player: Player, timeout_happened):
         # check if the guess was right
         row = player.row9[1:-1]
-        row = [int(s) for s in row.split(',')]
+        row = [int(s) for s in row.split(' ')]
         if player.guess9 == row[-1]:
             player.payoff += 1
+
 
 class Guess10(Page):
     form_model = 'player'
@@ -422,7 +425,7 @@ class Guess10(Page):
         notes = all_notes[r-1]
 
         row = player.row10[1:-1]
-        row = [int(s) for s in row.split(',')]
+        row = [int(s) for s in row.split(' ')]
 
         evaluated = html_table(row, player.n_lights)
 
@@ -432,29 +435,32 @@ class Guess10(Page):
     def before_next_page(player: Player, timeout_happened):
         # check if the guess was right
         row = player.row10[1:-1]
-        row = [int(s) for s in row.split(',')]
+        row = [int(s) for s in row.split(' ')]
         if player.guess10 == row[-1]:
             player.payoff += 1
 
+
 class LightChoice(Page):
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == C.NUM_ROUNDS
+
     form_model = 'player'
-    form_fields = ['light']
+    form_fields = ['light1',
+                   'light2']
 
     @staticmethod
     def vars_for_template(player: Player):
         r = player.round_number
-        return dict(round=r)
+        participant = player.participant
+        all_notes = participant.notes
+        return dict(round=r, notes=all_notes)
 
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
-        # Save the choice of lights at the participant level to pass it on to stage 3
-        if player.round_number == C.NUM_ROUNDS:
-            participant = player.participant
-            light_list = []
-            for p in player.in_all_rounds():
-                light_list.append(p.light)
-            light_list.append(player.light)
-            participant.light_list = light_list
+        # save all the light choices at the participant level
+        participant = player.participant
+        participant.light_list = [player.light1, player.light2]
 
 
 class ResultsWaitPage(WaitPage):

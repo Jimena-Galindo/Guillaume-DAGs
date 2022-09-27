@@ -1,10 +1,37 @@
 {{block title}}
-Case {{round}}
+Choose a light
 {{endblock}}
 
 {{ block content }}
 
-    {{formfield 'light'}}
+<table class="table" style="width: 100%; border: 0; border-collapse: collapse; margin: auto; padding: 20px; border-bottom: transparent" >
+    <tr>
+        <td>
+            <table class="table">
+         {{ for n in notes }}
+            <tr>
+                {{ n }}
+            </tr>
+                {{ endfor }}
+        </table>
 
+        </td>
+
+        <td>
+            <table class="table">
+                {{ for field in form }}
+            <tr>
+                    {{ field.widget }}
+
+            </tr>
+                {{ endfor }}
+            </table>
+
+
+        </td>
+
+    </tr>
+
+</table>
     {{ next_button }}
 {{ endblock }}

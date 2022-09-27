@@ -5,8 +5,14 @@
 <style>
 
      .otree-body {
-        max-width:80%
+        max-width:80%;
+         margin-top: 5px;
     }
+
+     .otree-title{
+         size: 0;
+         padding: 0;
+     }
     .circle_green
     {
         border: 1px solid green;
@@ -69,9 +75,13 @@
         margin-right: auto;
         width: 1%;
     }
+
+    .modebar {
+        display: none !important;
+    }
 </style>
 
-<table class="table" style="width: 100%; border: 0; border-collapse: collapse" >
+<table class="table" style="width: 100%; border: 0; border-collapse: collapse; border-bottom: transparent" >
 
     <tr>
         <td style="width: 30%"><h2>Case {{round}}:</h2>
@@ -83,7 +93,7 @@
             </script>
             {{ next_button }}
         </td>
-        <td style="width: 50%; padding: 0"> {{table}}  </td>
+        <td style="width: 50%; padding: 0; overflow-y: auto"> {{table}}  </td>
     </tr>
 
 </table>

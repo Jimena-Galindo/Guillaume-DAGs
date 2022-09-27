@@ -69,7 +69,7 @@
 </style>
 
 
-    <table class="table" style="width: 100%; border: 0; border-collapse: collapse; margin: auto; padding: 20px" >
+    <table class="table" style="width: 100%; border: 0; border-collapse: collapse; margin: auto; padding: 20px; border-bottom: transparent" >
 
     <tr>
         <td style="width: 40%"><h2>Case {{round}}(Guess 3):</h2>
@@ -85,7 +85,6 @@
             <h4>Notes:</h4>
             {{notes}}
 </div>
-            {{ next_button }}
         </td>
         <td style="width: 40%; padding: 0"> {{table}}  </td>
         <td style="width: 10%; padding: 0">
@@ -96,6 +95,6 @@
 
 </table>
 
-
+<div style="float: right"> {{ next_button }} </div>
 
 {{ endblock }}

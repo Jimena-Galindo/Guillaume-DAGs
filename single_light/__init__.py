@@ -11,7 +11,7 @@ class C(BaseConstants):
     NAME_IN_URL = 'Part3'
     PLAYERS_PER_GROUP = None
     # the number of rounds must be equal to the number of cases that will be shown
-    NUM_ROUNDS = 2
+    NUM_ROUNDS = 1
 
 
 class Subsession(BaseSubsession):
@@ -126,6 +126,23 @@ class Instructions(Page):
     @staticmethod
     def is_displayed(player: Player):
         return player.round_number == 1
+
+
+class AllNotes(Page):
+    form_model = 'player'
+    form_fields = ['']
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == 1
+
+    @staticmethod
+    def vars_for_template(player: Player):
+        # get all the notes from part 1
+        participant = player.participant
+        all_notes = participant.notes
+
+        return dict(notes=all_notes)
 
 
 class Guess1(Page):
