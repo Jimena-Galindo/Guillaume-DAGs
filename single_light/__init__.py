@@ -22,6 +22,21 @@ class Group(BaseGroup):
     pass
 
 
+def make_field(label, n_lights):
+    if n_lights == 2:
+        return models.IntegerField(
+        choices=[[1, 'Red'], [2, 'Blue']],
+        label=label,
+        widget=widgets.RadioSelectHorizontal,
+        )
+    else:
+        return models.IntegerField(
+            choices=[[1, 'Red'], [2, 'Blue'], [3, 'Green']],
+            label=label,
+            widget=widgets.RadioSelectHorizontal,
+        )
+
+
 class Player(BasePlayer):
     n_lights = models.IntegerField()
 
@@ -29,12 +44,8 @@ class Player(BasePlayer):
 
     row = models.StringField()
 
-    light1 = models.IntegerField(label="",
-                                 widget=widgets.RadioSelectHorizontal,
-                                 choices=[[1, 'Red'], [2, 'Blue']])
-    light2 = models.IntegerField(label="",
-                                 widget=widgets.RadioSelectHorizontal,
-                                 choices=[[1, 'Red'], [2, 'Blue'], [3, 'Green']])
+    light1 = make_field(' ', 2)
+    light2 = make_field(' ', 2)
 
 
 # FUNCTIONS
@@ -124,6 +135,24 @@ def html_table(case, light):
     return table1
 
 
+def notes_table(notes):
+    table = '<table class="table" style="width: 100%; margin: auto; padding-right: 0px; " ><tr>' \
+            '<th><h4>Cases</h4></th><th><h4>Notes</h4></th>'\
+            '</tr>'
+    for i in range(len(notes)):
+        table = table + '<tr> <td style="border-bottom: transparent; padding-right:0;"> </td> <td><div ' \
+                        'style="background: ghostwhite;'\
+                                    'font-size: 20px;'\
+                                    'width: 400px;'\
+                                    'height: 100px;'\
+                                    'overflow-y: auto;'\
+                                    'padding: 5px;'\
+                                    'border: 2px solid lightgray;'\
+                                    'margin: 10px;">' \
+                        + notes[i] + '</div></td></tr>'
+    table = table + '</table>'
+    return table
+
 # PAGES
 class Instructions(Page):
     @staticmethod
@@ -132,8 +161,9 @@ class Instructions(Page):
 
 
 class LightChoice(Page):
-
     form_model = 'player'
+
+    # need to add all the light fields here
     form_fields = ['light1',
                    'light2']
 
@@ -141,14 +171,13 @@ class LightChoice(Page):
     def vars_for_template(player: Player):
         participant = player.participant
         all_notes = participant.notes
-        return dict(notes=all_notes)
+        return dict(notes=notes_table(all_notes), all_notes=all_notes)
 
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
         # save all the light choices at the participant level
         participant = player.participant
         participant.light_list = [player.light1, player.light2]
-
 
 
 class Guess1(Page):
@@ -158,14 +187,19 @@ class Guess1(Page):
 
         participant = player.participant
         all_notes = participant.notes
-        notes = all_notes[r-1]
+
         # get the case corresponding to the round and sample only one row at random
         cases = participant.realized_cases
-        # draw a random case
-        index = int(random.randint(0, len(cases)))-1
-        case = cases[index]
-        row = random.sample([i for i in range(len(case))], 1)[0]
 
+        # draw a random case
+        index = int(random.randint(0, len(cases)-1))
+
+        # get the selected case and the notes corresponding to it
+        case = cases[index]
+        notes = all_notes[index]
+
+        #sample one row from the case at random
+        row = random.sample([i for i in range(len(case))], 1)[0]
         case_1 = case[row]
 
         n_lights = len(case_1)
@@ -197,7 +231,6 @@ class Guess1(Page):
         else:
             player.payoff += 0
             participant.guesses += 0
-
 
 
 class Feedback(Page):

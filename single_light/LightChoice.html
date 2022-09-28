@@ -15,57 +15,29 @@
         }
 </style>
 
-<table class="table" style="width: 100%; margin: auto; padding: 20px; " >
+<table class="table" style="width: 100%; border: 0; border-collapse: collapse; margin: auto; padding: 0px;
+border-bottom: transparent" >
     <tr>
-        <th><h4>Choose a light</h4></th><th></th><th></th>
+        <td style="width: 70%; padding-right: 0">
+            {{notes}}
+        </td>
+
+        <td style="width: 30%; padding-left: 0">
+            <table class="table" style="padding-left: 0">
+                <tr><th><h4> Light </h4></th></tr>
+            {{ for field in form}}
+            <tr style="height: 137px">
+                <td style="padding-left: 0">{{formfield field}}</td>
+            </tr>
+            {{endfor}}
+                </table>
+        </td>
     </tr>
-                <tr>
-                    <td style="border-bottom: transparent"></td>
-                    <td>
-                        <div style="background: ghostwhite;
-                                    font-size: 20px;
-                                    width: 400px;
-                                    height: 100px;
-                                    overflow-y: auto;
-                                    padding: 10px;
-                                    border: 2px solid lightgray;
-                                    margin: 10px;">
-
-                            {{ notes.0 }}
-
-                        </div>
-                    </td>
-
-                    <td>
-                        {{formfield 'light1'}}
-                    </td>
-
-                </tr>
-                <tr>
-                    <td style="border-bottom: transparent">
-
-                    </td>
-                    <td>
-                        <div style="background: ghostwhite; font-size: 20px;
-                                    width: 400px; height: 100px; padding: 10px;
-                                    border: 2px solid lightgray; overflow-y: auto;
-                                    margin: 10px;">
-
-                             {{ notes.1 }}
-
-                        </div>
-                    </td>
-                    <td>
-                        {{formfield 'light2'}}
-                    </td>
-                </tr>
-
-
-
-
-
 
 </table>
+
+
+
 <div style="float: right; padding-top: 20px">
     {{ next_button }}
 </div>
