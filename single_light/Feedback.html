@@ -1,0 +1,23 @@
+{{ block title }}
+    Feedback
+{{ endblock }}
+
+{{ block content }}
+<p>You have reached the end of the experiment. </p> <p>Here is a summary of your preformance</p>
+
+<table class="table" style="width: 30%; border: transparent">
+    <tr>
+        <td>
+            Correct guesses
+        </td>
+        <td> {{guesses}} </td>
+    </tr>
+    <tr>
+        <td>Payment</td>
+        <td>
+            {{pay}}
+        </td>
+    </tr>
+</table>
+    {{ next_button }}
+{{endblock}}

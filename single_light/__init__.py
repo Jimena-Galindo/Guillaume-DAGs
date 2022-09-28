@@ -155,7 +155,9 @@ class Guess1(Page):
         notes = all_notes[r-1]
         # get the case corresponding to the round and sample only one row at random
         cases = participant.realized_cases
-        case = cases[r-1]
+        # draw a random case
+        index = int(random.randint(0, len(cases)))-1
+        case = cases[index]
         row = random.sample([i for i in range(len(case))], 1)[0]
 
         case_1 = case[row]
@@ -168,7 +170,7 @@ class Guess1(Page):
 
         # get the light that they chose in the previous stage
         light_list = participant.light_list
-        show_light = light_list[r - 1]
+        show_light = light_list[index]
 
         evaluated = html_table(case_1, show_light)
 
@@ -181,13 +183,22 @@ class Guess1(Page):
     def before_next_page(player: Player, timeout_happened):
         # check if the guess was right and add one point to player payoff if it was
         row = player.row[1:-1]
-        row = [int(s) for s in row.split(',')]
+        participant = player.participant
+        row = [int(s) for s in row.split(' ')]
         if player.guess == row[-1]:
             player.payoff += 1
+            participant.guesses += 1
+
+
+class Feedback(Page):
+    @staticmethod
+    def vars_for_template(player: Player):
+        participant = player.participant
+        return dict(pay=player.payoff, guesses=participant.guesses)
 
 
 class ResultsWaitPage(WaitPage):
     pass
 
 
-page_sequence = [Instructions, Guess1]
+page_sequence = [Instructions, Guess1, Feedback]

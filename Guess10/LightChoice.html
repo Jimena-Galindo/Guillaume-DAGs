@@ -1,37 +1,73 @@
-{{block title}}
-Choose a light
-{{endblock}}
 
 {{ block content }}
 
-<table class="table" style="width: 100%; border: 0; border-collapse: collapse; margin: auto; padding: 20px; border-bottom: transparent" >
+<style>
+        .modebar{
+      display: none !important;
+}
+        .otree-title{
+            size: 0;
+            padding: 0;
+        }
+        .otree-body{
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+</style>
+
+<table class="table" style="width: 100%; margin: auto; padding: 20px; " >
     <tr>
-        <td>
-            <table class="table">
-         {{ for n in notes }}
-            <tr>
-                {{ n }}
-            </tr>
-                {{ endfor }}
-        </table>
-
-        </td>
-
-        <td>
-            <table class="table">
-                {{ for field in form }}
-            <tr>
-                    {{ field.widget }}
-
-            </tr>
-                {{ endfor }}
-            </table>
-
-
-        </td>
-
+        <th>Notes</th><th>Light</th>
     </tr>
+                <tr>
+                    <td style="border-bottom: transparent"><h4>Choose a light</h4></td>
+                    <td>
+                        <div style="background: ghostwhite;
+                                    font-size: 20px;
+                                    width: 400px;
+                                    height: 100px;
+                                    overflow-y: auto;
+                                    padding: 10px;
+                                    border: 2px solid lightgray;
+                                    margin: 10px;">
+
+                            {{ notes.0 }}
+
+                        </div>
+                    </td>
+
+                    <td>
+                        {{formfield 'light1'}}
+                    </td>
+
+                </tr>
+                <tr>
+                    <td style="border-bottom: transparent">
+
+                    </td>
+                    <td>
+                        <div style="background: ghostwhite; font-size: 20px;
+                                    width: 400px; height: 100px; padding: 10px;
+                                    border: 2px solid lightgray; overflow-y: auto;
+                                    margin: 10px;">
+
+                             {{ notes.1 }}
+
+                        </div>
+                    </td>
+                    <td>
+                        {{formfield 'light2'}}
+                    </td>
+                </tr>
+
+
+
+
+
 
 </table>
+<div style="float: right; padding-top: 20px">
     {{ next_button }}
+</div>
+
 {{ endblock }}

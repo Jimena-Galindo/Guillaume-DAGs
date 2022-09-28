@@ -50,10 +50,10 @@ class Player(BasePlayer):
 
     n_correct = models.IntegerField(initial=0)
 
-    light1 = models.IntegerField(label="Which light would you like to see for this case in part 3?",
+    light1 = models.IntegerField(label="",
                                  widget=widgets.RadioSelectHorizontal,
                                  choices=[[1, 'Red'], [2, 'Blue']])
-    light2 = models.IntegerField(label="Which light would you like to see for this case in part 3?",
+    light2 = models.IntegerField(label="",
                                  widget=widgets.RadioSelectHorizontal,
                                  choices=[[1, 'Red'], [2, 'Blue'], [3, 'Green']])
 
@@ -192,9 +192,11 @@ class Guess1(Page):
     def before_next_page(player: Player, timeout_happened):
         # check if the guess was right and add one point to player payoff if it was
         row = player.row1[1:-1]
+        participant = player.participant
         row = [int(s) for s in row.split(' ')]
         if player.guess1 == row[-1]:
             player.payoff += 1
+            participant.guesses += 1
 
 
 class Guess2(Page):
@@ -219,9 +221,11 @@ class Guess2(Page):
     def before_next_page(player: Player, timeout_happened):
         # check if the guess was right
         row = player.row2[1:-1]
+        participant = player.participant
         row = [int(s) for s in row.split(' ')]
         if player.guess2 == row[-1]:
             player.payoff += 1
+            participant.guesses += 1
 
 
 class Guess3(Page):
@@ -246,9 +250,11 @@ class Guess3(Page):
     def before_next_page(player: Player, timeout_happened):
         # check if the guess was right
         row = player.row3[1:-1]
+        participant = player.participant
         row = [int(s) for s in row.split(' ')]
         if player.guess3 == row[-1]:
             player.payoff += 1
+            participant.guesses += 1
 
 
 class Guess4(Page):
@@ -274,8 +280,10 @@ class Guess4(Page):
         # check if the guess was right
         row = player.row4[1:-1]
         row = [int(s) for s in row.split(' ')]
+        participant = player.participant
         if player.guess4 == row[-1]:
             player.payoff += 1
+            participant.guesses += 1
 
 
 class Guess5(Page):
@@ -300,9 +308,11 @@ class Guess5(Page):
     def before_next_page(player: Player, timeout_happened):
         # check if the guess was right
         row = player.row5[1:-1]
+        participant = player.participant
         row = [int(s) for s in row.split(' ')]
         if player.guess5 == row[-1]:
             player.payoff += 1
+            participant.guesses += 1
 
 
 class Guess6(Page):
@@ -328,8 +338,10 @@ class Guess6(Page):
         # check if the guess was right
         row = player.row6[1:-1]
         row = [int(s) for s in row.split(' ')]
+        participant = player.participant
         if player.guess6 == row[-1]:
             player.payoff += 1
+            participant.guesses += 1
 
 
 class Guess7(Page):
@@ -355,8 +367,10 @@ class Guess7(Page):
         # check if the guess was right
         row = player.row7[1:-1]
         row = [int(s) for s in row.split(' ')]
+        participant = player.participant
         if player.guess7 == row[-1]:
             player.payoff += 1
+            participant.guesses += 1
 
 
 class Guess8(Page):
@@ -381,9 +395,11 @@ class Guess8(Page):
     def before_next_page(player: Player, timeout_happened):
         # check if the guess was right
         row = player.row8[1:-1]
+        participant = player.participant
         row = [int(s) for s in row.split(' ')]
         if player.guess8 == row[-1]:
             player.payoff += 1
+            participant.guesses += 1
 
 
 class Guess9(Page):
@@ -409,8 +425,10 @@ class Guess9(Page):
         # check if the guess was right
         row = player.row9[1:-1]
         row = [int(s) for s in row.split(' ')]
+        participant = player.participant
         if player.guess9 == row[-1]:
             player.payoff += 1
+            participant.guesses += 1
 
 
 class Guess10(Page):
@@ -435,9 +453,11 @@ class Guess10(Page):
     def before_next_page(player: Player, timeout_happened):
         # check if the guess was right
         row = player.row10[1:-1]
+        participant = player.participant
         row = [int(s) for s in row.split(' ')]
         if player.guess10 == row[-1]:
             player.payoff += 1
+            participant.guesses += 1
 
 
 class LightChoice(Page):
