@@ -23,16 +23,19 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-
     n_lights = models.IntegerField()
 
     guess = models.IntegerField(choices=[[1, 'Ding'], [0, 'No Ding']], label='')
 
     row = models.StringField()
 
-    light = models.IntegerField()
+    light1 = models.IntegerField(label="",
+                                 widget=widgets.RadioSelectHorizontal,
+                                 choices=[[1, 'Red'], [2, 'Blue']])
+    light2 = models.IntegerField(label="",
+                                 widget=widgets.RadioSelectHorizontal,
+                                 choices=[[1, 'Red'], [2, 'Blue'], [3, 'Green']])
 
-    correct = models.IntegerField()
 
 # FUNCTIONS
 # translate each case to html table
@@ -128,21 +131,24 @@ class Instructions(Page):
         return player.round_number == 1
 
 
-class AllNotes(Page):
-    form_model = 'player'
-    form_fields = ['']
+class LightChoice(Page):
 
-    @staticmethod
-    def is_displayed(player: Player):
-        return player.round_number == 1
+    form_model = 'player'
+    form_fields = ['light1',
+                   'light2']
 
     @staticmethod
     def vars_for_template(player: Player):
-        # get all the notes from part 1
         participant = player.participant
         all_notes = participant.notes
-
         return dict(notes=all_notes)
+
+    @staticmethod
+    def before_next_page(player: Player, timeout_happened):
+        # save all the light choices at the participant level
+        participant = player.participant
+        participant.light_list = [player.light1, player.light2]
+
 
 
 class Guess1(Page):
@@ -188,17 +194,21 @@ class Guess1(Page):
         if player.guess == row[-1]:
             player.payoff += 1
             participant.guesses += 1
+        else:
+            player.payoff += 0
+            participant.guesses += 0
+
 
 
 class Feedback(Page):
     @staticmethod
     def vars_for_template(player: Player):
         participant = player.participant
-        return dict(pay=player.payoff, guesses=participant.guesses)
+        return dict(pay=participant.payoff, guesses=participant.guesses)
 
 
 class ResultsWaitPage(WaitPage):
     pass
 
 
-page_sequence = [Instructions, Guess1, Feedback]
+page_sequence = [Instructions, LightChoice, Guess1, Feedback]

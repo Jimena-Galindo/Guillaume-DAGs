@@ -188,10 +188,11 @@ def html_table_freqs(case, freq):
 
         # Write out the html table code
         table = '<table class="table" style="text-align: center; overflow-y: auto;">' \
-                '<tr><th>Red Light</th><th>Blue Light</th><th>Other Lights</th><th>Sound</th></tr>'
+                '<tr style="height: 25px; font-size: 12px"><th>Red Light</th><th>Blue Light</th><th>Other Lights</th>' \
+                '<th>Sound</th></tr>'
 
         for i in range(sum(freq)):
-            table = table + '<tr><td>' + html_mat[i][0] + '</td>'\
+            table = table + '<tr style="height: 25px; font-size: 12px" ><td>' + html_mat[i][0] + '</td>'\
                                  '<td>' + html_mat[i][1] + '</td>'\
                                  '<td>' + html_mat[i][2] + '</td>'\
                                  '<td>' + html_mat[i][3] + '</td></tr>'
@@ -246,10 +247,11 @@ def html_table_freqs(case, freq):
 
         # Write out the html table code
         table = '<table class="table" style="text-align: center">' \
-                '<tr><th>Red Light</th><th>Blue Light</th><th>Green Light</th><th>Other Lights</th><th>Sound</th></tr>'
+                '<tr style="height: 25px; font-size: 12px"><th>Red Light</th><th>Blue Light</th><th>Green Light</th>' \
+                '<th>Other Lights</th><th>Sound</th></tr>'
 
         for i in range(sum(freq)):
-            table = table + '<tr><td>' + html_mat[i][0] + '</td>'\
+            table = table + '<tr style="height: 25px; font-size: 12px" ><td>' + html_mat[i][0] + '</td>'\
                                  '<td>' + html_mat[i][1] + '</td>'\
                                  '<td>' + html_mat[i][2] + '</td>'\
                                  '<td>' + html_mat[i][3] + '</td>'\
@@ -270,6 +272,7 @@ class Instructions(Page):
         if player.round_number == 1:
             participant = player.participant
             participant.notes = []
+            participant.guesses = 0
             participant.realized_cases = []
             # The number of trials for each case is n_trials defined in the subsession variables.
             # It has to be at least 10 for stage 2 to work.

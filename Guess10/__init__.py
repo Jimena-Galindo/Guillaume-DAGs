@@ -48,15 +48,6 @@ class Player(BasePlayer):
     row9 = models.StringField()
     row10 = models.StringField()
 
-    n_correct = models.IntegerField(initial=0)
-
-    light1 = models.IntegerField(label="",
-                                 widget=widgets.RadioSelectHorizontal,
-                                 choices=[[1, 'Red'], [2, 'Blue']])
-    light2 = models.IntegerField(label="",
-                                 widget=widgets.RadioSelectHorizontal,
-                                 choices=[[1, 'Red'], [2, 'Blue'], [3, 'Green']])
-
 
 # FUNCTIONS
 # translate each case to html table
@@ -197,6 +188,9 @@ class Guess1(Page):
         if player.guess1 == row[-1]:
             player.payoff += 1
             participant.guesses += 1
+        else:
+            player.payoff += 0
+            participant.guesses += 0
 
 
 class Guess2(Page):
@@ -226,6 +220,9 @@ class Guess2(Page):
         if player.guess2 == row[-1]:
             player.payoff += 1
             participant.guesses += 1
+        else:
+            player.payoff += 0
+            participant.guesses += 0
 
 
 class Guess3(Page):
@@ -255,6 +252,9 @@ class Guess3(Page):
         if player.guess3 == row[-1]:
             player.payoff += 1
             participant.guesses += 1
+        else:
+            player.payoff += 0
+            participant.guesses += 0
 
 
 class Guess4(Page):
@@ -284,6 +284,9 @@ class Guess4(Page):
         if player.guess4 == row[-1]:
             player.payoff += 1
             participant.guesses += 1
+        else:
+            player.payoff += 0
+            participant.guesses += 0
 
 
 class Guess5(Page):
@@ -313,6 +316,9 @@ class Guess5(Page):
         if player.guess5 == row[-1]:
             player.payoff += 1
             participant.guesses += 1
+        else:
+            player.payoff += 0
+            participant.guesses += 0
 
 
 class Guess6(Page):
@@ -342,6 +348,9 @@ class Guess6(Page):
         if player.guess6 == row[-1]:
             player.payoff += 1
             participant.guesses += 1
+        else:
+            player.payoff += 0
+            participant.guesses += 0
 
 
 class Guess7(Page):
@@ -371,6 +380,9 @@ class Guess7(Page):
         if player.guess7 == row[-1]:
             player.payoff += 1
             participant.guesses += 1
+        else:
+            player.payoff += 0
+            participant.guesses += 0
 
 
 class Guess8(Page):
@@ -400,6 +412,9 @@ class Guess8(Page):
         if player.guess8 == row[-1]:
             player.payoff += 1
             participant.guesses += 1
+        else:
+            player.payoff += 0
+            participant.guesses += 0
 
 
 class Guess9(Page):
@@ -429,6 +444,9 @@ class Guess9(Page):
         if player.guess9 == row[-1]:
             player.payoff += 1
             participant.guesses += 1
+        else:
+            player.payoff += 0
+            participant.guesses += 0
 
 
 class Guess10(Page):
@@ -458,29 +476,9 @@ class Guess10(Page):
         if player.guess10 == row[-1]:
             player.payoff += 1
             participant.guesses += 1
-
-
-class LightChoice(Page):
-    @staticmethod
-    def is_displayed(player: Player):
-        return player.round_number == C.NUM_ROUNDS
-
-    form_model = 'player'
-    form_fields = ['light1',
-                   'light2']
-
-    @staticmethod
-    def vars_for_template(player: Player):
-        r = player.round_number
-        participant = player.participant
-        all_notes = participant.notes
-        return dict(round=r, notes=all_notes)
-
-    @staticmethod
-    def before_next_page(player: Player, timeout_happened):
-        # save all the light choices at the participant level
-        participant = player.participant
-        participant.light_list = [player.light1, player.light2]
+        else:
+            player.payoff += 0
+            participant.guesses += 0
 
 
 class ResultsWaitPage(WaitPage):
@@ -488,5 +486,4 @@ class ResultsWaitPage(WaitPage):
 
 
 page_sequence = [Instructions,
-                 Guess1, Guess2, Guess3, Guess4, Guess5, Guess6, Guess7, Guess8, Guess9, Guess10,
-                 LightChoice]
+                 Guess1, Guess2, Guess3, Guess4, Guess5, Guess6, Guess7, Guess8, Guess9, Guess10]
