@@ -33,9 +33,10 @@ USE_POINTS = True
 
 ROOMS = [
     dict(
-        name='econ101',
-        display_name='Econ 101 class',
-        participant_label_file='_rooms/econ101.txt',
+        name='econ_lab',
+        display_name='Lab',
+        # include the line below to have labels and add the list of labels in the file in rooms
+        # participant_label_file='_rooms/econ101.txt',
     ),
     dict(name='live_demo', display_name='Room for live demo (no participant labels)'),
 ]
