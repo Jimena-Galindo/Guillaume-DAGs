@@ -188,14 +188,18 @@ def html_table_freqs(case, freq):
 
         # Write out the html table code
         table = '<table class="table" style="text-align: center; overflow-y: auto;">' \
-                '<tr style="height: 25px; font-size: 12px"><th>Red Light</th><th>Blue Light</th><th>Other Lights</th>' \
-                '<th>Sound</th></tr>'
+                '<tr style="height: 5px; font-size: 10px; padding: 3px; white-space: nowrap; border-collapse: collapse;">'\
+                '<th style="height: 5px; font-size: 12px; padding: 3px; white-space: nowrap; border-collapse: collapse;">Red Light</th>' \
+                '<th style="height: 5px; font-size: 12px; padding: 3px; white-space: nowrap; border-collapse: collapse;">Blue Light</th>' \
+                '<th style="height: 5px; font-size: 12px; padding: 3px; white-space: nowrap; border-collapse: collapse;">Other Lights</th>' \
+                '<th style="height: 5px; font-size: 12px; padding: 3px; white-space: nowrap; border-collapse: collapse;">Sound</th></tr>'
 
         for i in range(sum(freq)):
-            table = table + '<tr style="height: 25px; font-size: 12px" ><td>' + html_mat[i][0] + '</td>'\
-                                 '<td>' + html_mat[i][1] + '</td>'\
-                                 '<td>' + html_mat[i][2] + '</td>'\
-                                 '<td>' + html_mat[i][3] + '</td></tr>'
+            table = table + '<tr style="height: 5px; font-size: 12px; padding: 3px; white-space: nowrap; border-collapse: collapse; vertical-align: middle" >' \
+                            '<td style="height: 5px; font-size: 12px; padding: 3px; white-space: nowrap; border-collapse: collapse;">' + html_mat[i][0] + '</td>'\
+                                 '<td style="height: 5px; font-size: 12px; padding: 3px; white-space: nowrap; border-collapse: collapse;">' + html_mat[i][1] + '</td>'\
+                                 '<td style="height: 5px; font-size: 12px; padding: 3px; white-space: nowrap; border-collapse: collapse;">' + html_mat[i][2] + '</td>'\
+                                 '<td style="height: 5px; font-size: 12px; padding: 3px; white-space: nowrap; border-collapse: collapse;">' + html_mat[i][3] + '</td></tr>'
 
         table = table + '</table>'
 
@@ -247,15 +251,19 @@ def html_table_freqs(case, freq):
 
         # Write out the html table code
         table = '<table class="table" style="text-align: center">' \
-                '<tr style="height: 25px; font-size: 12px"><th>Red Light</th><th>Blue Light</th><th>Green Light</th>' \
-                '<th>Other Lights</th><th>Sound</th></tr>'
+                '<tr>' \
+                '<th style="height: 5px; font-size: 12px; padding: 3px; white-space: nowrap; border-collapse: collapse;">Red Light</th>' \
+                '<th style="height: 5px; font-size: 12px; padding: 3px; white-space: nowrap; border-collapse: collapse;">Blue Light</th>' \
+                '<th style="height: 5px; font-size: 12px; padding: 3px; white-space: nowrap; border-collapse: collapse;">Green Light</th>' \
+                '<th style="height: 5px; font-size: 12px; padding: 3px; white-space: nowrap; border-collapse: collapse;">Other Lights</th>' \
+                '<th style="height: 5px; font-size: 12px; padding: 3px; white-space: nowrap; border-collapse: collapse;">Sound</th></tr>'
 
         for i in range(sum(freq)):
-            table = table + '<tr style="height: 25px; font-size: 12px" ><td>' + html_mat[i][0] + '</td>'\
-                                 '<td>' + html_mat[i][1] + '</td>'\
-                                 '<td>' + html_mat[i][2] + '</td>'\
-                                 '<td>' + html_mat[i][3] + '</td>'\
-                                 '<td>' + html_mat[i][4] + '</td></tr>'
+            table = table + '<tr style="vertical-align: middle;"><td style="height: 5px; font-size: 12px; padding: 3px; white-space: nowrap; border-collapse: collapse;">' + html_mat[i][0] + '</td>'\
+                                 '<td style="height: 5px; font-size: 12px; padding: 3px; white-space: nowrap; border-collapse: collapse;">' + html_mat[i][1] + '</td>'\
+                                 '<td style="height: 5px; font-size: 12px; padding: 3px; white-space: nowrap; border-collapse: collapse;">' + html_mat[i][2] + '</td>'\
+                                 '<td style="height: 5px; font-size: 12px; padding: 3px; white-space: nowrap; border-collapse: collapse;">' + html_mat[i][3] + '</td>'\
+                                 '<td style="height: 5px; font-size: 12px; padding: 3px; white-space: nowrap; border-collapse: collapse;">' + html_mat[i][4] + '</td></tr>'
 
         table = table + '</table>'
 
