@@ -3,7 +3,9 @@ import numpy as np
 import random
 
 doc = """
-Get the note written in Guess if the sound is heard or not for 10 random trials of each case.
+Get the note written in Guess if the sound is heard or not for 10 random trials of each case. Each row is shown 
+in a different page (there are 10 pages of guesses per round. The case changes on each round in the same order as 
+they were shown in part1. The order of rows is shuffled again
 """
 
 
@@ -11,7 +13,7 @@ class C(BaseConstants):
     NAME_IN_URL = 'Part2'
     PLAYERS_PER_GROUP = None
     # the number of rounds must be equal to the number of cases that will be shown
-    NUM_ROUNDS = 2
+    NUM_ROUNDS = 11
 
 
 class Subsession(BaseSubsession):
@@ -23,9 +25,11 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-
+    # the number of lights that the case has. It can be Red and Blue (+ others and sound) or Red, Blue, Green.
     n_lights = models.IntegerField()
 
+    # the guess made for each row shown in a random order (randomized at participant level.
+    # The randomization happens in the sampling procedure in the Guess1 page)
     guess1 = models.IntegerField(choices=[[1, 'Ding'], [0, 'No Ding']], label='')
     guess2 = models.IntegerField(choices=[[1, 'Ding'], [0, 'No Ding']], label='')
     guess3 = models.IntegerField(choices=[[1, 'Ding'], [0, 'No Ding']], label='')
@@ -37,6 +41,7 @@ class Player(BasePlayer):
     guess9 = models.IntegerField(choices=[[1, 'Ding'], [0, 'No Ding']], label='')
     guess10 = models.IntegerField(choices=[[1, 'Ding'], [0, 'No Ding']], label='')
 
+    # Save each of the sampled rows as strings
     row1 = models.StringField()
     row2 = models.StringField()
     row3 = models.StringField()
@@ -50,7 +55,7 @@ class Player(BasePlayer):
 
 
 # FUNCTIONS
-# translate each case to html table
+# translate each of the sampled case rows to the html table it can take 2 or 3 lights
 def html_table(row, n_lights):
     # case should be an array of dimensions kxn. k is the number of unique trials and n is n_lights + others + sound
     # frequency should be a vector of size k with each element i equal to the number or repetitions of trial i wanted
@@ -124,18 +129,16 @@ def html_table(row, n_lights):
 
 # PAGES
 class Instructions(Page):
+    # this page is only necessary if you want to have some page to indicate that they are moving on to part 2
     @staticmethod
+    # if you want to have a page to indicate when they are changing from one case to the next, get rid of this part
+    # and show the page in all rounds
     def is_displayed(player: Player):
         return player.round_number == 1
 
-    @staticmethod
-    def before_next_page(player: Player, timeout_happened):
-        participant = player.participant
-        # set the variable where the light choices will be stored to pass on to the next round
-        participant.light_list = []
-
 
 class Guess1(Page):
+    # All 10 pages follow the same structure as this one. Only the code in Page1 has comments (sorry)
     form_model = 'player'
     form_fields = ['guess1']
 
@@ -153,14 +156,14 @@ class Guess1(Page):
         # determine how many lights are in the case 2 or 3 (plus the others column)
         n_lights = len(case[0])
         player.n_lights = n_lights
-        # sample 10 out of the realized rows
+        # sample 10 out of the realized rows (this is the step that randomizes the order of rows
         rows = random.sample([i for i in range(len(case))], 10)
 
         case_10 = []
 
         for i in rows:
             case_10.append(case[i])
-        # save each of the sampled rows
+        # save each of the sampled rows as strings
         player.row1 = str(case_10[0])
         player.row2 = str(case_10[1])
         player.row3 = str(case_10[2])

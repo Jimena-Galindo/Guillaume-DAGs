@@ -10,7 +10,7 @@ class C(BaseConstants):
     NAME_IN_URL = 'Part1'
     PLAYERS_PER_GROUP = None
     # there must be as many rounds as there are cases in the case_list defined in the instructions page
-    NUM_ROUNDS = 2
+    NUM_ROUNDS = 11
     N_trials = 27
 
 
@@ -79,10 +79,9 @@ def html_table_probs(case, probs, n):
 
         for i in range(len(draws)):
             table = table + '<tr style="height: 25px; font-size: 12px"><td>' + html_mat[i][0] + '</td>' \
-                                                          '<td>' + html_mat[i][1] + '</td>' \
-                                                                                    '<td>' + html_mat[i][2] + '</td>' \
-                                                                                                              '<td>' + \
-                    html_mat[i][3] + '</td></tr>'
+                                                        '<td>' + html_mat[i][1] + '</td>' \
+                                                        '<td>' + html_mat[i][2] + '</td>' \
+                                                        '<td>' + html_mat[i][3] + '</td></tr>'
 
         table = table + '</table>'
 
@@ -129,15 +128,15 @@ def html_table_probs(case, probs, n):
 
         for i in range(len(draws)):
             table = table + '<tr style="height: 25px; font-size: 12px"><td>' + html_mat[i][0] + '</td>' \
-                                                          '<td>' + html_mat[i][1] + '</td>' \
-                                                                                    '<td>' + html_mat[i][2] + '</td>' \
-                                                                                                              '<td>' + \
-                    html_mat[i][3] + '</td>' \
-                                     '<td>' + html_mat[i][4] + '</td></tr>'
+                                                        '<td>' + html_mat[i][1] + '</td>' \
+                                                        '<td>' + html_mat[i][2] + '</td>' \
+                                                        '<td>' + html_mat[i][3] + '</td>' \
+                                                        '<td>' + html_mat[i][4] + '</td></tr>'
 
         table = table + '</table>'
 
     return table, h
+
 
 def html_table_freqs(case, freq):
     # case should be an array of dimensions kxn. k is the number of unique trials and n is n_lights + others + sound
@@ -269,6 +268,7 @@ def html_table_freqs(case, freq):
 
     return table, h
 
+
 # PAGES
 class Instructions(Page):
     @staticmethod
@@ -286,46 +286,72 @@ class Instructions(Page):
             # It has to be at least 10 for stage 2 to work.
 
             # The columns of a case with 2 lights are Red light, Blue light, Other lights, Sound
-            case1 = [[1, 1, 1, 0],
-                     [1, 1, 0, 1],
-                     [0, 1, 1, 1],
+            case1 = [[0, 0, 0, 0],
+                     [0, 0, 0, 1],
                      [0, 1, 0, 0],
-                     [0, 0, 1, 1],
-                     [0, 0, 0, 0]]
+                     [0, 1, 0, 1],
+                     [1, 1, 0, 0],
+                     [1, 1, 0, 1],
+                     [1, 0, 0, 0],
+                     [1, 0, 0, 1]]
 
             # the vector freq contains the number of repetitions for each of the rows in case. The length of freq
             # should be equal to the number of rows in case.
             # the sum of freq is the number of trials that will be shown to the subject.
-            freq1 = [2, 3, 4, 6, 7, 8]
+            freq1 = [8, 14, 1, 2, 0, 0, 1, 1]
+            freq2 = [8, 5, 1, 7, 0, 2, 1, 3]
+            freq3 = [9, 2, 1, 8, 0, 3, 0, 4]
+            freq4 = [3, 1, 3, 1, 2, 8, 2, 7]
+            freq5 = [4, 0, 4, 1, 1, 8, 1, 8]
+            freq6 = [3, 1, 3, 1, 4, 14, 0, 1]
+            freq7 = [6, 1, 2, 0, 2, 15, 0, 1]
+            freq8 = [9, 5, 0, 2, 0, 7, 1, 3]
+            freq9 = [10, 3, 0, 1, 0, 12, 0, 1]
+            freq10 = [0, 0, 2, 1, 4, 15, 4, 1]
+            freq11 = [1, 0, 3, 0, 2, 15, 5, 1]
+
 
             # p is the probability that the red light is on, q is the same for the blue light and e is for other lights
-            p = 1/2
-            q = 1/2
-            e = 1/4
+            # p = 1/2
+            # q = 1/2
+            # e = 1/4
 
             # the vector prob1 has the probabilities that each row of the case is realized.
-            # this should be used with html_table_probs
-            prob1 = [p*(1-e), p*e, (1-p)*e*q, (1-p)*q*(1-e), (1-p)*(1-q)*e, (1-p)*(1-q)*(1-e)]
+            # This is for one particular DAG. If this method of generating the trials of the case wants to be used,
+            # the tables should be generated with html_table_probs instead of html_table_freqs
+            # prob1 = [p*(1-e), p*e, (1-p)*e*q, (1-p)*q*(1-e), (1-p)*(1-q)*e, (1-p)*(1-q)*(1-e)]
 
+            # Both methods can handle tables with an extra light (red, blue and green)
             # The columns of a case with 3 lights are Red light, Blue light, Green light, Other lights, Sound
-            case2 = [[1, 1, 1, 1, 1],
-                     [0, 0, 0, 0, 0]]
+            # case2 = [[1, 1, 1, 1, 1],
+                     # [0, 0, 0, 0, 0]]
 
             # p =
             # q =
             # r =
             # e =
 
-            prob2 = [1/2, 1/2]
+            # prob2_5l = [1/2, 1/2]
 
-            freq2 = [15, 12]
+            # freq2_5l = [15, 12]
 
             # bundle each case together with its frequencies and then list all bundles to be used
-            # The number of rounds for the subsession must be equal to the number of bundles in this list
+            # The number of rounds for each subsession must be equal to the number of bundles in this list.
+            # The list will be shuffled at a participant level and that order of cases will be shown in all parts
             case_list = [[case1, freq1],
-                         [case2, freq2]]
+                         [case1, freq2],
+                         [case1, freq3],
+                         [case1, freq4],
+                         [case1, freq5],
+                         [case1, freq6],
+                         [case1, freq7],
+                         [case1, freq8],
+                         [case1, freq9],
+                         [case1, freq10],
+                         [case1, freq11]]
 
-            # shuffle the bundles of [case, freq] to determine the order in which they are shown to the participant
+            # shuffle the bundles of [case, freq] to determine the order in which they are shown to the participant.
+            # the ordered list is saved at the participant level so participant variables should be downloaded to get it
             np.random.shuffle(case_list)
             participant.cases_ordered = case_list
 

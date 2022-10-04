@@ -85,14 +85,17 @@
 <table class="table" style="width: 100%; border: 0; border-collapse: collapse; border-bottom: transparent" >
 
     <tr>
-        <td style="width: 30%"><h2>Case {{round}}:</h2>
+        <td style="width: 50%"><h2>Case {{round}}:</h2>
             {{formfields}}
             <script>
                 for (let ele of document.getElementsByTagName('textarea')) {
-                    ele.rows = 15;
+                    ele.rows = 20;
                     }
             </script>
-            {{ next_button }}
+            <div style="float: right">
+                {{ next_button }}
+            </div>
+
         </td>
         <td style="width: 50%; padding: 0; overflow-y: auto"> {{table}}  </td>
     </tr>

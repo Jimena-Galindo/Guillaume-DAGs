@@ -5,7 +5,7 @@ SESSION_CONFIGS = [
     dict(
         name='DAGs',
         num_demo_participants=1,
-        app_sequence=['DAG1', 'Guess10', 'single_light']
+        app_sequence=['Part1', 'Part2', 'Part3']
     ),
 ]
 

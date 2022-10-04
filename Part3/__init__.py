@@ -10,7 +10,8 @@ Get the note written in Guess if the sound is heard or not for a single trial fo
 class C(BaseConstants):
     NAME_IN_URL = 'Part3'
     PLAYERS_PER_GROUP = None
-    # the number of rounds must be equal to the number of cases that will be shown
+    # there is only one round because only one case is selected for the guess.
+    # The case selected is random at participant level
     NUM_ROUNDS = 1
 
 
@@ -25,9 +26,9 @@ class Group(BaseGroup):
 def make_field(label, n_lights):
     if n_lights == 2:
         return models.IntegerField(
-        choices=[[1, 'Red'], [2, 'Blue']],
-        label=label,
-        widget=widgets.RadioSelectHorizontal,
+            choices=[[1, 'Red'], [2, 'Blue']],
+            label=label,
+            widget=widgets.RadioSelectHorizontal,
         )
     else:
         return models.IntegerField(
@@ -43,9 +44,20 @@ class Player(BasePlayer):
     guess = models.IntegerField(choices=[[1, 'Ding'], [0, 'No Ding']], label='')
 
     row = models.StringField()
-
+    # make the fields where the light is chosen (the first input is the label and the number
+    # indicates the number of lights in the case (2 or 3)
     light1 = make_field(' ', 2)
     light2 = make_field(' ', 2)
+    light3 = make_field(' ', 2)
+    light4 = make_field(' ', 2)
+    light5 = make_field(' ', 2)
+    light6 = make_field(' ', 2)
+    light7 = make_field(' ', 2)
+    light8 = make_field(' ', 2)
+    light9 = make_field(' ', 2)
+    light10 = make_field(' ', 2)
+    light11 = make_field(' ', 2)
+
 
 
 # FUNCTIONS
@@ -136,6 +148,8 @@ def html_table(case, light):
 
 
 def notes_table(notes):
+    # this function takes all the notes from part one and prints them out in a column of the table.
+    # If the height of the divs is modified here, you will also have to modify it in the html for the fields columns
     table = '<table class="table" style="width: 100%; margin: auto; padding-right: 0px; " ><tr>' \
             '<th><h4>Cases</h4></th><th><h4>Notes</h4></th>'\
             '</tr>'
@@ -143,8 +157,8 @@ def notes_table(notes):
         table = table + '<tr> <td style="border-bottom: transparent; padding-right:0;"> </td> <td><div ' \
                         'style="background: ghostwhite;'\
                                     'font-size: 20px;'\
-                                    'width: 400px;'\
-                                    'height: 100px;'\
+                                    'width: 500px;'\
+                                    'height: 200px;'\
                                     'overflow-y: auto;'\
                                     'padding: 5px;'\
                                     'border: 2px solid lightgray;'\
@@ -165,11 +179,21 @@ class LightChoice(Page):
 
     # need to add all the light fields here
     form_fields = ['light1',
-                   'light2']
+                   'light2',
+                   'light3',
+                   'light4',
+                   'light5',
+                   'light6',
+                   'light7',
+                   'light8',
+                   'light9',
+                   'light10',
+                   'light11']
 
     @staticmethod
     def vars_for_template(player: Player):
         participant = player.participant
+        # get all the notes from part 1 and pass them to the function that makes the html code
         all_notes = participant.notes
         return dict(notes=notes_table(all_notes), all_notes=all_notes)
 
@@ -177,7 +201,18 @@ class LightChoice(Page):
     def before_next_page(player: Player, timeout_happened):
         # save all the light choices at the participant level
         participant = player.participant
-        participant.light_list = [player.light1, player.light2]
+        # all the light fields must be added here as well
+        participant.light_list = [player.light1,
+                                  player.light2,
+                                  player.light3,
+                                  player.light4,
+                                  player.light5,
+                                  player.light6,
+                                  player.light7,
+                                  player.light8,
+                                  player.light9,
+                                  player.light10,
+                                  player.light11]
 
 
 class Guess1(Page):
@@ -191,14 +226,16 @@ class Guess1(Page):
         # get the case corresponding to the round and sample only one row at random
         cases = participant.realized_cases
 
-        # draw a random case
+        # draw a random case number (random number at the participant level)
+        # The index only indicates the position in the list of shuffled cases
+        # so two participants with the same index might get different cases
         index = int(random.randint(0, len(cases)-1))
 
         # get the selected case and the notes corresponding to it
         case = cases[index]
         notes = all_notes[index]
 
-        #sample one row from the case at random
+        # sample one row from the case at random
         row = random.sample([i for i in range(len(case))], 1)[0]
         case_1 = case[row]
 
@@ -208,7 +245,7 @@ class Guess1(Page):
 
         player.n_lights = n_lights
 
-        # get the light that they chose in the previous stage
+        # get the light that they chose in the previous stage and pass it to the function that writes the html code
         light_list = participant.light_list
         show_light = light_list[index]
 
