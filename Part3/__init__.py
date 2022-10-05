@@ -59,7 +59,6 @@ class Player(BasePlayer):
     light11 = make_field(' ', 2)
 
 
-
 # FUNCTIONS
 # translate each case to html table
 def html_table(case, light):
@@ -93,11 +92,11 @@ def html_table(case, light):
 
         # Write out the html table code
         table1 = '<table class="table" style="text-align: center; vertical-align:middle">' \
-                '<tr><th>Red Light</th><th>Blue Light</th><th>Other Lights</th></tr>'
+                 '<tr><th>Red Light</th><th>Blue Light</th><th>Other Lights</th></tr>'
 
         table1 = table1 + '<tr height="95px" ><td>' + html_mat[0][0] + '</td>'\
-                                 '<td>' + html_mat[0][1] + '</td>'\
-                                 '<td>' + html_mat[0][2] + '</td></tr>'
+                          '<td>' + html_mat[0][1] + '</td>'\
+                          '<td>' + html_mat[0][2] + '</td></tr>'
 
         table1 = table1 + '</table>'
 
@@ -136,12 +135,12 @@ def html_table(case, light):
 
         # Write out the html table code
         table1 = '<table class="table" style="text-align: center; vertical-align:middle">' \
-                '<tr><th>Red Light</th><th>Blue Light</th><th>Green Light</th><th>Other Lights</th></tr>'
+                 '<tr><th>Red Light</th><th>Blue Light</th><th>Green Light</th><th>Other Lights</th></tr>'
 
         table1 = table1 + '<tr height="95px" ><td>' + html_mat[0][0] + '</td>'\
-                                 '<td>' + html_mat[0][1] + '</td>'\
-                                 '<td>' + html_mat[0][2] + '</td>' \
-                                 '<td>' + html_mat[0][3] + '</td></tr>'
+                          '<td>' + html_mat[0][1] + '</td>'\
+                          '<td>' + html_mat[0][2] + '</td>' \
+                          '<td>' + html_mat[0][3] + '</td></tr>'
         table1 = table1 + '</table>'
 
     return table1
@@ -166,6 +165,7 @@ def notes_table(notes):
                         + notes[i] + '</div></td></tr>'
     table = table + '</table>'
     return table
+
 
 # PAGES
 class Instructions(Page):
