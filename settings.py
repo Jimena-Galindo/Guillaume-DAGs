@@ -36,7 +36,7 @@ ROOMS = [
         name='econ_lab',
         display_name='Lab',
         # include the line below to have labels and add the list of labels in the file in rooms
-        # participant_label_file='_rooms/econ101.txt',
+        participant_label_file='_rooms/econ_lab.txt',
     ),
     dict(name='live_demo', display_name='Room for live demo (no participant labels)'),
 ]
