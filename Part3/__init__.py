@@ -60,7 +60,7 @@ class Player(BasePlayer):
 
 
 # FUNCTIONS
-# translate each case to html table
+# translate each case to html table with the lights
 def html_table(case, light):
     # case should be an array of dimensions kxn. k is the number of unique trials and n is n_lights + others + sound
     # frequency should be a vector of size k with each element i equal to the number or repetitions of trial i wanted
@@ -145,15 +145,16 @@ def html_table(case, light):
 
     return table1
 
-
+# make the column with the notes for the light choices
 def notes_table(notes):
     # this function takes all the notes from part one and prints them out in a column of the table.
     # If the height of the divs is modified here, you will also have to modify it in the html for the fields columns
     table = '<table class="table" style="width: 100%; margin: auto; padding-right: 0px; " ><tr>' \
-            '<th><h4>Cases</h4></th><th><h4>Notes</h4></th>'\
+            '<th><h4>Case</h4></th><th><h4>Notes</h4></th>'\
             '</tr>'
     for i in range(len(notes)):
-        table = table + '<tr> <td style="border-bottom: transparent; padding-right:0;"> </td> <td><div ' \
+        table = table + '<tr> <td style="padding-right:0; text-align: center">' + str(i+1) + \
+                        '</td> <td><div ' \
                         'style="background: ghostwhite;'\
                                     'font-size: 20px;'\
                                     'width: 500px;'\
@@ -201,6 +202,7 @@ class LightChoice(Page):
     def before_next_page(player: Player, timeout_happened):
         # save all the light choices at the participant level
         participant = player.participant
+
         # all the light fields must be added here as well
         participant.light_list = [player.light1,
                                   player.light2,

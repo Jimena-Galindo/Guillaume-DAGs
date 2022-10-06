@@ -25,6 +25,7 @@ class Group(BaseGroup):
 class Player(BasePlayer):
     notes = models.LongStringField()
     case = models.StringField()
+    case_order = models.StringField()
 
 
 # FUNCTIONS
@@ -310,7 +311,6 @@ class Instructions(Page):
             freq10 = [0, 0, 2, 1, 4, 15, 4, 1]
             freq11 = [1, 0, 3, 0, 2, 15, 5, 1]
 
-
             # p is the probability that the red light is on, q is the same for the blue light and e is for other lights
             # p = 1/2
             # q = 1/2
@@ -354,6 +354,7 @@ class Instructions(Page):
             # the ordered list is saved at the participant level so participant variables should be downloaded to get it
             np.random.shuffle(case_list)
             participant.cases_ordered = case_list
+            player.case_order = str(participant.cases_ordered)
 
 
 class DAG1(Page):
@@ -366,12 +367,15 @@ class DAG1(Page):
         participant = player.participant
         # get the case corresponding to the round
         case = participant.cases_ordered[r-1]
+
         # get the html code for the table (this part also generates the repetitions of each row)
         evaluated = html_table_freqs(case[0], case[1])
         matrix = evaluated[1]
+
         # save the case matrix as a string for the player. The cases are also saves as matrices at the participant level
         player.case = str(matrix)
         realized_cases = participant.realized_cases
+
         # this saves the realized cases (ordered and with the repeated rows as a list of matrices)
         realized_cases.append(matrix)
         participant.realized_cases = realized_cases
@@ -380,7 +384,7 @@ class DAG1(Page):
 
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
-        # save all the notes at articipant level to pass them to the next stage
+        # save all the notes at participant level to pass them to the next stage
         participant = player.participant
         all_notes = participant.notes
         all_notes.append(player.notes)

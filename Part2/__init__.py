@@ -57,9 +57,8 @@ class Player(BasePlayer):
 # FUNCTIONS
 # translate each of the sampled case rows to the html table it can take 2 or 3 lights
 def html_table(row, n_lights):
-    # case should be an array of dimensions kxn. k is the number of unique trials and n is n_lights + others + sound
-    # frequency should be a vector of size k with each element i equal to the number or repetitions of trial i wanted
-    # the total number of trials will be sum(freq)
+    # row is a row taken from a case from part 1. The case can have either 4 columns (Red, Blue, others, sound) or
+    # it can have 5 columns (Red, Blue, Green, others, Sound)
 
     # 2 lights: Red, Blue (and Others)
     if n_lights == 4:
@@ -156,7 +155,8 @@ class Guess1(Page):
         # determine how many lights are in the case 2 or 3 (plus the others column)
         n_lights = len(case[0])
         player.n_lights = n_lights
-        # sample 10 out of the realized rows (this is the step that randomizes the order of rows
+        # sample 10 out of the realized rows (this is the step that randomizes the order of rows at the participant
+        # level relative to the order in which they appeared in the case in part 1
         rows = random.sample([i for i in range(len(case))], 10)
 
         case_10 = []
