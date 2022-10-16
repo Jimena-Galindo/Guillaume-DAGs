@@ -19,7 +19,7 @@ SESSION_CONFIG_DEFAULTS = dict(
     real_world_currency_per_point=1.00, participation_fee=0.00, doc=""
 )
 
-PARTICIPANT_FIELDS = ['notes', 'cases_ordered', 'realized_cases', 'light_list', 'guesses']
+PARTICIPANT_FIELDS = ['notes', 'cases_ordered', 'realized_cases', 'light_list', 'guesses', 'order_names']
 
 SESSION_FIELDS = []
 

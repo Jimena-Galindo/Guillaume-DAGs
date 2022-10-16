@@ -338,22 +338,23 @@ class Instructions(Page):
             # bundle each case together with its frequencies and then list all bundles to be used
             # The number of rounds for each subsession must be equal to the number of bundles in this list.
             # The list will be shuffled at a participant level and that order of cases will be shown in all parts
-            case_list = [[case1, freq1],
-                         [case1, freq2],
-                         [case1, freq3],
-                         [case1, freq4],
-                         [case1, freq5],
-                         [case1, freq6],
-                         [case1, freq7],
-                         [case1, freq8],
-                         [case1, freq9],
-                         [case1, freq10],
-                         [case1, freq11]]
+            case_list = [[case1, freq1, '1L'],
+                         [case1, freq2, '2H'],
+                         [case1, freq3, '2L'],
+                         [case1, freq4, '3H'],
+                         [case1, freq5, '3L'],
+                         [case1, freq6, '4H'],
+                         [case1, freq7, '4L'],
+                         [case1, freq8, '5H'],
+                         [case1, freq9, '5L'],
+                         [case1, freq10, '7H'],
+                         [case1, freq11, '7L']]
 
             # shuffle the bundles of [case, freq] to determine the order in which they are shown to the participant.
             # the ordered list is saved at the participant level so participant variables should be downloaded to get it
             np.random.shuffle(case_list)
-            participant.cases_ordered = case_list
+            participant.order_names = [case_list[i][-1] for i in range(len(case_list))]
+            participant.cases_ordered = [case_list[i][0:2] for i in range(len(case_list))]
             player.case_order = str(participant.cases_ordered)
 
 
