@@ -189,11 +189,9 @@ class Guess1(Page):
         participant = player.participant
         row = [int(s) for s in row.split(' ')]
         if player.guess1 == row[-1]:
-            player.payoff += 1
-            participant.guesses += 1
+            participant.guesses.append(1)
         else:
-            player.payoff += 0
-            participant.guesses += 0
+            participant.guesses.append(0)
 
 
 class Guess2(Page):
@@ -221,11 +219,9 @@ class Guess2(Page):
         participant = player.participant
         row = [int(s) for s in row.split(' ')]
         if player.guess2 == row[-1]:
-            player.payoff += 1
-            participant.guesses += 1
+            participant.guesses.append(1)
         else:
-            player.payoff += 0
-            participant.guesses += 0
+            participant.guesses.append(0)
 
 
 class Guess3(Page):
@@ -253,11 +249,9 @@ class Guess3(Page):
         participant = player.participant
         row = [int(s) for s in row.split(' ')]
         if player.guess3 == row[-1]:
-            player.payoff += 1
-            participant.guesses += 1
+            participant.guesses.append(1)
         else:
-            player.payoff += 0
-            participant.guesses += 0
+            participant.guesses.append(0)
 
 
 class Guess4(Page):
@@ -285,11 +279,9 @@ class Guess4(Page):
         row = [int(s) for s in row.split(' ')]
         participant = player.participant
         if player.guess4 == row[-1]:
-            player.payoff += 1
-            participant.guesses += 1
+            participant.guesses.append(1)
         else:
-            player.payoff += 0
-            participant.guesses += 0
+            participant.guesses.append(0)
 
 
 class Guess5(Page):
@@ -317,11 +309,9 @@ class Guess5(Page):
         participant = player.participant
         row = [int(s) for s in row.split(' ')]
         if player.guess5 == row[-1]:
-            player.payoff += 1
-            participant.guesses += 1
+            participant.guesses.append(1)
         else:
-            player.payoff += 0
-            participant.guesses += 0
+            participant.guesses.append(0)
 
 
 class Guess6(Page):
@@ -349,11 +339,9 @@ class Guess6(Page):
         row = [int(s) for s in row.split(' ')]
         participant = player.participant
         if player.guess6 == row[-1]:
-            player.payoff += 1
-            participant.guesses += 1
+            participant.guesses.append(1)
         else:
-            player.payoff += 0
-            participant.guesses += 0
+            participant.guesses.append(0)
 
 
 class Guess7(Page):
@@ -381,11 +369,9 @@ class Guess7(Page):
         row = [int(s) for s in row.split(' ')]
         participant = player.participant
         if player.guess7 == row[-1]:
-            player.payoff += 1
-            participant.guesses += 1
+            participant.guesses.append(1)
         else:
-            player.payoff += 0
-            participant.guesses += 0
+            participant.guesses.append(0)
 
 
 class Guess8(Page):
@@ -413,11 +399,9 @@ class Guess8(Page):
         participant = player.participant
         row = [int(s) for s in row.split(' ')]
         if player.guess8 == row[-1]:
-            player.payoff += 1
-            participant.guesses += 1
+            participant.guesses.append(1)
         else:
-            player.payoff += 0
-            participant.guesses += 0
+            participant.guesses.append(0)
 
 
 class Guess9(Page):
@@ -445,11 +429,9 @@ class Guess9(Page):
         row = [int(s) for s in row.split(' ')]
         participant = player.participant
         if player.guess9 == row[-1]:
-            player.payoff += 1
-            participant.guesses += 1
+            participant.guesses.append(1)
         else:
-            player.payoff += 0
-            participant.guesses += 0
+            participant.guesses.append(0)
 
 
 class Guess10(Page):
@@ -472,16 +454,26 @@ class Guess10(Page):
 
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
-        # check if the guess was right
+        # check if the guess was right and save in a vector of guesses
         row = player.row10[1:-1]
         participant = player.participant
         row = [int(s) for s in row.split(' ')]
         if player.guess10 == row[-1]:
-            player.payoff += 1
-            participant.guesses += 1
+            participant.guesses.append(1)
         else:
-            player.payoff += 0
-            participant.guesses += 0
+            participant.guesses.append(0)
+
+
+class MyWaitPage(WaitPage):
+    # wait between stages 2 and 3.
+    @staticmethod
+    def is_displayed(player):
+        return player.round_number == C.NUM_ROUNDS
+
+    title_text = "End of Part 2"
+    body_text = "You have reached the end of Part 2. " \
+                "Before we move on to Part 3 we will wait for all other participants to be done with this task"
+    wait_for_all_groups = True
 
 
 class ResultsWaitPage(WaitPage):
@@ -489,4 +481,5 @@ class ResultsWaitPage(WaitPage):
 
 
 page_sequence = [Instructions,
-                 Guess1, Guess2, Guess3, Guess4, Guess5, Guess6, Guess7, Guess8, Guess9, Guess10]
+                 Guess1, Guess2, Guess3, Guess4, Guess5, Guess6, Guess7, Guess8, Guess9, Guess10,
+                 MyWaitPage]

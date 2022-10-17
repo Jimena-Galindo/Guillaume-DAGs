@@ -392,8 +392,21 @@ class DAG1(Page):
         participant.notes = all_notes
 
 
+class MyWaitPage(WaitPage):
+    # this wait page is not necessary. It is here to get everyone up to the same point and possibly shorten the necessary
+    # wait between stages 2 and 3.
+    @staticmethod
+    def is_displayed(player):
+        return player.round_number == C.NUM_ROUNDS
+
+    title_text = "End of Part 1"
+    body_text = "You have reached the end of Part 1. " \
+                "Before we move on to Part 2 we will wait for the other participants to be done with this task"
+    wait_for_all_groups = True
+
+
 class ResultsWaitPage(WaitPage):
     pass
 
 
-page_sequence = [Instructions, DAG1]
+page_sequence = [Instructions, DAG1, MyWaitPage]

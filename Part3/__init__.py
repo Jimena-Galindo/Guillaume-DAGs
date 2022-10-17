@@ -150,7 +150,7 @@ def notes_table(notes):
     # this function takes all the notes from part one and prints them out in a column of the table.
     # If the height of the divs is modified here, you will also have to modify it in the html for the fields columns
     table = '<table class="table" style="width: 100%; margin: auto; padding-right: 0px; " ><tr>' \
-            '<th><h4>Case</h4></th><th><h4>Notes</h4></th>'\
+            '<th><h4>Machine</h4></th><th><h4>Notes</h4></th>'\
             '</tr>'
     for i in range(len(notes)):
         table = table + '<tr> <td style="padding-right:0; text-align: center">' + str(i+1) + \
@@ -276,6 +276,9 @@ class Feedback(Page):
     @staticmethod
     def vars_for_template(player: Player):
         participant = player.participant
+        part = random.randint(2, 3)
+        if part == 2:
+
         return dict(pay=participant.payoff, guesses=participant.guesses)
 
 
