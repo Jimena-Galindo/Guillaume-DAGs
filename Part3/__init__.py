@@ -145,6 +145,7 @@ def html_table(case, light):
 
     return table1
 
+
 # make the column with the notes for the light choices
 def notes_table(notes):
     # this function takes all the notes from part one and prints them out in a column of the table.
@@ -264,12 +265,11 @@ class Guess1(Page):
         row = player.row[1:-1]
         participant = player.participant
         row = [int(s) for s in row.split(' ')]
+        participant.sound.append(row[-1])
         if player.guess == row[-1]:
-            player.payoff += 1
-            participant.guesses += 1
+            participant.guesses.append(1)
         else:
-            player.payoff += 0
-            participant.guesses += 0
+            participant.guesses.append(0)
 
 
 class Feedback(Page):
@@ -278,8 +278,22 @@ class Feedback(Page):
         participant = player.participant
         part = random.randint(2, 3)
         if part == 2:
+            draw = random.sample(range(110), 1)
+            if participant.guesses[draw] == participant.sound[draw]:
+                pay2 = 25
+                player.payoff += 25
+            else:
+                player.payoff += 0
+                pay2 = 0
+        else:
+            if participant.sound[-1] == participant.guesses[-1]:
+                player.payoff += 25
+                pay3 = 25
+            else:
+                player.payoff += 0
+                pay3 = 0
 
-        return dict(pay=participant.payoff, guesses=participant.guesses)
+        return dict(pay=participant.payoff, guesses=sum(participant.guesses), p=part, p2=pay2, p3=pay3)
 
 
 class ResultsWaitPage(WaitPage):

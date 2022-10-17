@@ -188,6 +188,7 @@ class Guess1(Page):
         row = player.row1[1:-1]
         participant = player.participant
         row = [int(s) for s in row.split(' ')]
+        participant.sound.append(row[-1])
         if player.guess1 == row[-1]:
             participant.guesses.append(1)
         else:
@@ -218,6 +219,7 @@ class Guess2(Page):
         row = player.row2[1:-1]
         participant = player.participant
         row = [int(s) for s in row.split(' ')]
+        participant.sound.append(row[-1])
         if player.guess2 == row[-1]:
             participant.guesses.append(1)
         else:
@@ -247,6 +249,7 @@ class Guess3(Page):
         # check if the guess was right
         row = player.row3[1:-1]
         participant = player.participant
+        participant.sound.append(row[-1])
         row = [int(s) for s in row.split(' ')]
         if player.guess3 == row[-1]:
             participant.guesses.append(1)
@@ -278,6 +281,7 @@ class Guess4(Page):
         row = player.row4[1:-1]
         row = [int(s) for s in row.split(' ')]
         participant = player.participant
+        participant.sound.append(row[-1])
         if player.guess4 == row[-1]:
             participant.guesses.append(1)
         else:
@@ -308,6 +312,7 @@ class Guess5(Page):
         row = player.row5[1:-1]
         participant = player.participant
         row = [int(s) for s in row.split(' ')]
+        participant.sound.append(row[-1])
         if player.guess5 == row[-1]:
             participant.guesses.append(1)
         else:
@@ -338,6 +343,7 @@ class Guess6(Page):
         row = player.row6[1:-1]
         row = [int(s) for s in row.split(' ')]
         participant = player.participant
+        participant.sound.append(row[-1])
         if player.guess6 == row[-1]:
             participant.guesses.append(1)
         else:
@@ -368,6 +374,7 @@ class Guess7(Page):
         row = player.row7[1:-1]
         row = [int(s) for s in row.split(' ')]
         participant = player.participant
+        participant.sound.append(row[-1])
         if player.guess7 == row[-1]:
             participant.guesses.append(1)
         else:
@@ -398,6 +405,7 @@ class Guess8(Page):
         row = player.row8[1:-1]
         participant = player.participant
         row = [int(s) for s in row.split(' ')]
+        participant.sound.append(row[-1])
         if player.guess8 == row[-1]:
             participant.guesses.append(1)
         else:
@@ -428,6 +436,7 @@ class Guess9(Page):
         row = player.row9[1:-1]
         row = [int(s) for s in row.split(' ')]
         participant = player.participant
+        participant.sound.append(row[-1])
         if player.guess9 == row[-1]:
             participant.guesses.append(1)
         else:
@@ -458,6 +467,7 @@ class Guess10(Page):
         row = player.row10[1:-1]
         participant = player.participant
         row = [int(s) for s in row.split(' ')]
+        participant.sound.append(row[-1])
         if player.guess10 == row[-1]:
             participant.guesses.append(1)
         else:
