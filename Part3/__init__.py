@@ -24,6 +24,7 @@ class Group(BaseGroup):
 
 
 def make_field(label, n_lights):
+
     if n_lights == 2:
         return models.IntegerField(
             choices=[[1, 'Red'], [2, 'Blue']],
@@ -39,11 +40,10 @@ def make_field(label, n_lights):
 
 
 class Player(BasePlayer):
-    n_lights = models.IntegerField()
-
     guess = models.IntegerField(choices=[[1, 'Ding'], [0, 'No Ding']], label='')
 
     row = models.StringField()
+    case = models.IntegerField()
     # make the fields where the light is chosen (the first input is the label and the number
     # indicates the number of lights in the case (2 or 3)
     light1 = make_field(' ', 2)
@@ -244,6 +244,7 @@ class Guess1(Page):
         # The index only indicates the position in the list of shuffled cases
         # so two participants with the same index might get different cases
         index = int(random.randint(0, len(cases)-1))
+        player.case = index + 1
 
         # get the selected case and the notes corresponding to it
         case = cases[index]
@@ -256,8 +257,6 @@ class Guess1(Page):
         n_lights = len(case_1)
         # save the row sampled as a string for the player
         player.row = str(case_1)
-
-        player.n_lights = n_lights
 
         # get the light that they chose in the previous stage and pass it to the function that writes the html code
         light_list = participant.light_list
