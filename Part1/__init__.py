@@ -10,7 +10,7 @@ class C(BaseConstants):
     NAME_IN_URL = 'Part1'
     PLAYERS_PER_GROUP = None
     # there must be as many rounds as there are cases in the case_list defined in the instructions page
-    NUM_ROUNDS = 11
+    NUM_ROUNDS = 2
     N_trials = 27
 
 
@@ -281,7 +281,8 @@ class Instructions(Page):
         if player.round_number == 1:
             participant = player.participant
             participant.notes = []
-            participant.guesses = 0
+            participant.guesses = []
+            participant.sound = []
             participant.realized_cases = []
             # The number of trials for each case is n_trials defined in the subsession variables.
             # It has to be at least 10 for stage 2 to work.
@@ -401,7 +402,7 @@ class MyWaitPage(WaitPage):
 
     title_text = "End of Part 1"
     body_text = "You have reached the end of Part 1. " \
-                "Before we move on to Part 2 we will wait for the other participants to be done with this task"
+                "Before we move on to Part 2 we will wait for the other participants to finish Part 1"
     wait_for_all_groups = True
 
 

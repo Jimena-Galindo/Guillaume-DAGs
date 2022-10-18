@@ -58,6 +58,8 @@ class Player(BasePlayer):
     light10 = make_field(' ', 2)
     light11 = make_field(' ', 2)
 
+    password = models.StringField()
+
 
 # FUNCTIONS
 # translate each case to html table with the lights
@@ -171,9 +173,18 @@ def notes_table(notes):
 
 # PAGES
 class Instructions(Page):
+    form_model = 'player'
+    form_fields = ['password']
+
     @staticmethod
     def is_displayed(player: Player):
         return player.round_number == 1
+
+    @staticmethod
+    def error_message(player, values):
+        print('values is', values)
+        if values['password'] != '46RT':
+            return 'the password is incorrect'
 
 
 class LightChoice(Page):
@@ -277,14 +288,16 @@ class Feedback(Page):
     def vars_for_template(player: Player):
         participant = player.participant
         part = random.randint(2, 3)
+        pay2 = 0
+        pay3 = 0
         if part == 2:
-            draw = random.sample(range(110), 1)
-            if participant.guesses[draw] == participant.sound[draw]:
+            draw = random.sample([i for i in range(20)], 1)
+            if participant.guesses[draw[0]] == participant.sound[draw[0]]:
                 pay2 = 25
                 player.payoff += 25
             else:
                 player.payoff += 0
-                pay2 = 0
+
         else:
             if participant.sound[-1] == participant.guesses[-1]:
                 player.payoff += 25
@@ -293,7 +306,8 @@ class Feedback(Page):
                 player.payoff += 0
                 pay3 = 0
 
-        return dict(pay=participant.payoff, guesses=sum(participant.guesses), p=part, p2=pay2, p3=pay3)
+        return dict(pay=participant.payoff, guesses=sum(participant.guesses), p=part, p2=pay2, p3=pay3,
+                    total=participant.payoff_plus_participation_fee())
 
 
 class ResultsWaitPage(WaitPage):

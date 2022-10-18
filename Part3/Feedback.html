@@ -8,16 +8,27 @@
 <table class="table" style="width: 30%; border: transparent">
     <tr>
         <td>
-            Correct guesses
+            Show up fee
         </td>
-        <td> {{guesses}} </td>
+        <td> $10 </td>
     </tr>
     <tr>
-        <td>Payment</td>
+        <td>Part Selected for Payment</td>
         <td>
-            {{pay}}
+            {{p}}
         </td>
     </tr>
+    <tr>
+        <td>Payment in selected part</td>
+        <td>
+            {{if p == 2}} ${{p2}} {{else}} ${{p3}} {{endif}}
+        </td>
+    </tr>
+    <tr>
+        <td>Total payment</td>
+        <td>{{total}}</td>
+    </tr>
+
 </table>
 
 

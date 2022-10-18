@@ -13,7 +13,7 @@ class C(BaseConstants):
     NAME_IN_URL = 'Part2'
     PLAYERS_PER_GROUP = None
     # the number of rounds must be equal to the number of cases that will be shown
-    NUM_ROUNDS = 11
+    NUM_ROUNDS = 2
 
 
 class Subsession(BaseSubsession):
@@ -52,6 +52,8 @@ class Player(BasePlayer):
     row8 = models.StringField()
     row9 = models.StringField()
     row10 = models.StringField()
+
+    password = models.StringField()
 
 
 # FUNCTIONS
@@ -128,12 +130,18 @@ def html_table(row, n_lights):
 
 # PAGES
 class Instructions(Page):
-    # this page is only necessary if you want to have some page to indicate that they are moving on to part 2
+    form_model = 'player'
+    form_fields = ['password']
+
     @staticmethod
-    # if you want to have a page to indicate when they are changing from one case to the next, get rid of this part
-    # and show the page in all rounds
     def is_displayed(player: Player):
         return player.round_number == 1
+
+    @staticmethod
+    def error_message(player, values):
+        print('values is', values)
+        if values['password'] != '45RT':
+            return 'the password is incorrect'
 
 
 class Guess1(Page):
@@ -482,7 +490,7 @@ class MyWaitPage(WaitPage):
 
     title_text = "End of Part 2"
     body_text = "You have reached the end of Part 2. " \
-                "Before we move on to Part 3 we will wait for all other participants to be done with this task"
+                "Before we move on to Part 3 we will wait for all other participants to finish Part 2"
     wait_for_all_groups = True
 
 
