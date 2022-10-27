@@ -1,31 +1,31 @@
 {{ block title }}
-    Feedback
+    Thank you for participating
 {{ endblock }}
 
 {{ block content }}
-<p>You have reached the end of the experiment. </p> <p>Here is a summary of your preformance</p>
+<p>You have reached the end of the experiment. </p> <p>Here is a summary of your payment:</p>
 
 <table class="table" style="width: 30%; border: transparent">
     <tr>
         <td>
-            Show up fee
+            Show up fee:
         </td>
         <td> $10 </td>
     </tr>
     <tr>
-        <td>Part Selected for Payment</td>
+        <td>Part Selected for Payment:</td>
         <td>
             {{p}}
         </td>
     </tr>
     <tr>
-        <td>Payment in selected part</td>
+        <td>Payment in selected part:</td>
         <td>
             {{if p == 2}} ${{p2}} {{else}} ${{p3}} {{endif}}
         </td>
     </tr>
     <tr>
-        <td>Total payment</td>
+        <td>Total payment:</td>
         <td>{{total}}</td>
     </tr>
 

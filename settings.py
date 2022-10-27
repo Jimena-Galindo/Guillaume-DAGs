@@ -9,6 +9,12 @@ SESSION_CONFIGS = [
     ),
 ]
 
+ROOMS = [
+    dict(
+        name='econ_lab',
+        display_name='Lab',
+    )
+]
 
 # if you set a property in SESSION_CONFIG_DEFAULTS, it will be inherited by all configs
 # in SESSION_CONFIGS, except those that explicitly override it.
@@ -31,15 +37,6 @@ LANGUAGE_CODE = 'en'
 REAL_WORLD_CURRENCY_CODE = 'USD'
 USE_POINTS = False
 
-ROOMS = [
-    dict(
-        name='econ_lab',
-        display_name='Lab',
-        # include the line below to have labels and add the list of labels in the file in rooms
-        participant_label_file='_rooms/econ_lab.txt',
-    ),
-    dict(name='live_demo', display_name='Room for live demo (no participant labels)'),
-]
 
 ADMIN_USERNAME = 'admin'
 # for security, best to set admin password in an environment variable
