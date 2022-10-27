@@ -182,7 +182,6 @@ class Instructions(Page):
 
     @staticmethod
     def error_message(player, values):
-        print('values is', values)
         if values['password'] != '46RT':
             return 'the password is incorrect'
 

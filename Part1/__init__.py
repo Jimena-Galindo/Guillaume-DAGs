@@ -10,7 +10,7 @@ class C(BaseConstants):
     NAME_IN_URL = 'Part1'
     PLAYERS_PER_GROUP = None
     # there must be as many rounds as there are cases in the case_list defined in the instructions page
-    NUM_ROUNDS = 2
+    NUM_ROUNDS = 11
     N_trials = 27
 
 
