@@ -13,7 +13,7 @@ class C(BaseConstants):
     NAME_IN_URL = 'Part2'
     PLAYERS_PER_GROUP = None
     # the number of rounds must be equal to the number of cases that will be shown
-    NUM_ROUNDS = 11
+    NUM_ROUNDS = 7
 
 
 class Subsession(BaseSubsession):
@@ -40,6 +40,23 @@ class Player(BasePlayer):
     guess8 = models.IntegerField(choices=[[1, 'Ding'], [0, 'No Ding']], label='')
     guess9 = models.IntegerField(choices=[[1, 'Ding'], [0, 'No Ding']], label='')
     guess10 = models.IntegerField(choices=[[1, 'Ding'], [0, 'No Ding']], label='')
+    guess11 = models.IntegerField(choices=[[1, 'Ding'], [0, 'No Ding']], label='')
+    guess12 = models.IntegerField(choices=[[1, 'Ding'], [0, 'No Ding']], label='')
+    guess13 = models.IntegerField(choices=[[1, 'Ding'], [0, 'No Ding']], label='')
+    guess14 = models.IntegerField(choices=[[1, 'Ding'], [0, 'No Ding']], label='')
+    guess15 = models.IntegerField(choices=[[1, 'Ding'], [0, 'No Ding']], label='')
+    guess16 = models.IntegerField(choices=[[1, 'Ding'], [0, 'No Ding']], label='')
+    guess17 = models.IntegerField(choices=[[1, 'Ding'], [0, 'No Ding']], label='')
+    guess18 = models.IntegerField(choices=[[1, 'Ding'], [0, 'No Ding']], label='')
+    guess19 = models.IntegerField(choices=[[1, 'Ding'], [0, 'No Ding']], label='')
+    guess20 = models.IntegerField(choices=[[1, 'Ding'], [0, 'No Ding']], label='')
+    guess21 = models.IntegerField(choices=[[1, 'Ding'], [0, 'No Ding']], label='')
+    guess22 = models.IntegerField(choices=[[1, 'Ding'], [0, 'No Ding']], label='')
+    guess23 = models.IntegerField(choices=[[1, 'Ding'], [0, 'No Ding']], label='')
+    guess24 = models.IntegerField(choices=[[1, 'Ding'], [0, 'No Ding']], label='')
+    guess25 = models.IntegerField(choices=[[1, 'Ding'], [0, 'No Ding']], label='')
+    guess26 = models.IntegerField(choices=[[1, 'Ding'], [0, 'No Ding']], label='')
+    guess27 = models.IntegerField(choices=[[1, 'Ding'], [0, 'No Ding']], label='')
 
     # Save each of the sampled rows as strings
     row1 = models.StringField()
@@ -52,6 +69,23 @@ class Player(BasePlayer):
     row8 = models.StringField()
     row9 = models.StringField()
     row10 = models.StringField()
+    row11 = models.StringField()
+    row12 = models.StringField()
+    row13 = models.StringField()
+    row14 = models.StringField()
+    row15 = models.StringField()
+    row16 = models.StringField()
+    row17 = models.StringField()
+    row18 = models.StringField()
+    row19 = models.StringField()
+    row20 = models.StringField()
+    row21 = models.StringField()
+    row22 = models.StringField()
+    row23 = models.StringField()
+    row24 = models.StringField()
+    row25 = models.StringField()
+    row26 = models.StringField()
+    row27 = models.StringField()
 
     password = models.StringField()
 
@@ -170,7 +204,7 @@ class Guess1(Page):
         player.n_lights = n_lights
         # sample 10 out of the realized rows (this is the step that randomizes the order of rows at the participant
         # level relative to the order in which they appeared in the case in part 1
-        rows = random.sample([i for i in range(len(case))], 10)
+        rows = random.sample([i for i in range(len(case))], 27)
 
         case_10 = []
 
@@ -187,6 +221,24 @@ class Guess1(Page):
         player.row8 = str(case_10[7])
         player.row9 = str(case_10[8])
         player.row10 = str(case_10[9])
+        player.row11 = str(case_10[10])
+        player.row12 = str(case_10[11])
+        player.row13 = str(case_10[12])
+        player.row14 = str(case_10[13])
+        player.row15 = str(case_10[14])
+        player.row16 = str(case_10[15])
+        player.row17 = str(case_10[16])
+        player.row18 = str(case_10[17])
+        player.row19 = str(case_10[18])
+        player.row20 = str(case_10[19])
+        player.row21 = str(case_10[10])
+        player.row22 = str(case_10[21])
+        player.row23 = str(case_10[22])
+        player.row24 = str(case_10[23])
+        player.row25 = str(case_10[24])
+        player.row26 = str(case_10[25])
+        player.row27 = str(case_10[26])
+
 
         row = [int(s) for s in case_10[0]]
 
@@ -486,6 +538,532 @@ class Guess10(Page):
         else:
             participant.guesses.append(0)
 
+class Guess11(Page):
+    form_model = 'player'
+    form_fields = ['guess11']
+
+    @staticmethod
+    def vars_for_template(player: Player):
+        r = player.round_number
+        participant = player.participant
+        all_notes = participant.notes
+        notes = all_notes[r-1]
+
+        row = player.row11[1:-1]
+        row = [int(s) for s in row.split(' ')]
+
+        evaluated = html_table(row, player.n_lights)
+
+        return dict(notes=notes, table=evaluated, round=r)
+
+    @staticmethod
+    def before_next_page(player: Player, timeout_happened):
+        # check if the guess was right and save in a vector of guesses
+        row = player.row11[1:-1]
+        participant = player.participant
+        row = [int(s) for s in row.split(' ')]
+        participant.sound.append(row[-1])
+        if player.guess11 == row[-1]:
+            participant.guesses.append(1)
+        else:
+            participant.guesses.append(0)
+
+
+class Guess12(Page):
+    form_model = 'player'
+    form_fields = ['guess12']
+
+    @staticmethod
+    def vars_for_template(player: Player):
+        r = player.round_number
+        participant = player.participant
+        all_notes = participant.notes
+        notes = all_notes[r-1]
+
+        row = player.row12[1:-1]
+        row = [int(s) for s in row.split(' ')]
+
+        evaluated = html_table(row, player.n_lights)
+
+        return dict(notes=notes, table=evaluated, round=r)
+
+    @staticmethod
+    def before_next_page(player: Player, timeout_happened):
+        # check if the guess was right and save in a vector of guesses
+        row = player.row12[1:-1]
+        participant = player.participant
+        row = [int(s) for s in row.split(' ')]
+        participant.sound.append(row[-1])
+        if player.guess12 == row[-1]:
+            participant.guesses.append(1)
+        else:
+            participant.guesses.append(0)
+
+
+class Guess13(Page):
+    form_model = 'player'
+    form_fields = ['guess13']
+
+    @staticmethod
+    def vars_for_template(player: Player):
+        r = player.round_number
+        participant = player.participant
+        all_notes = participant.notes
+        notes = all_notes[r-1]
+
+        row = player.row13[1:-1]
+        row = [int(s) for s in row.split(' ')]
+
+        evaluated = html_table(row, player.n_lights)
+
+        return dict(notes=notes, table=evaluated, round=r)
+
+    @staticmethod
+    def before_next_page(player: Player, timeout_happened):
+        # check if the guess was right and save in a vector of guesses
+        row = player.row13[1:-1]
+        participant = player.participant
+        row = [int(s) for s in row.split(' ')]
+        participant.sound.append(row[-1])
+        if player.guess13 == row[-1]:
+            participant.guesses.append(1)
+        else:
+            participant.guesses.append(0)
+
+
+class Guess14(Page):
+    form_model = 'player'
+    form_fields = ['guess14']
+
+    @staticmethod
+    def vars_for_template(player: Player):
+        r = player.round_number
+        participant = player.participant
+        all_notes = participant.notes
+        notes = all_notes[r-1]
+
+        row = player.row14[1:-1]
+        row = [int(s) for s in row.split(' ')]
+
+        evaluated = html_table(row, player.n_lights)
+
+        return dict(notes=notes, table=evaluated, round=r)
+
+    @staticmethod
+    def before_next_page(player: Player, timeout_happened):
+        # check if the guess was right and save in a vector of guesses
+        row = player.row14[1:-1]
+        participant = player.participant
+        row = [int(s) for s in row.split(' ')]
+        participant.sound.append(row[-1])
+        if player.guess14 == row[-1]:
+            participant.guesses.append(1)
+        else:
+            participant.guesses.append(0)
+
+
+class Guess15(Page):
+    form_model = 'player'
+    form_fields = ['guess15']
+
+    @staticmethod
+    def vars_for_template(player: Player):
+        r = player.round_number
+        participant = player.participant
+        all_notes = participant.notes
+        notes = all_notes[r-1]
+
+        row = player.row15[1:-1]
+        row = [int(s) for s in row.split(' ')]
+
+        evaluated = html_table(row, player.n_lights)
+
+        return dict(notes=notes, table=evaluated, round=r)
+
+    @staticmethod
+    def before_next_page(player: Player, timeout_happened):
+        # check if the guess was right and save in a vector of guesses
+        row = player.row15[1:-1]
+        participant = player.participant
+        row = [int(s) for s in row.split(' ')]
+        participant.sound.append(row[-1])
+        if player.guess15 == row[-1]:
+            participant.guesses.append(1)
+        else:
+            participant.guesses.append(0)
+
+
+class Guess16(Page):
+    form_model = 'player'
+    form_fields = ['guess16']
+
+    @staticmethod
+    def vars_for_template(player: Player):
+        r = player.round_number
+        participant = player.participant
+        all_notes = participant.notes
+        notes = all_notes[r-1]
+
+        row = player.row16[1:-1]
+        row = [int(s) for s in row.split(' ')]
+
+        evaluated = html_table(row, player.n_lights)
+
+        return dict(notes=notes, table=evaluated, round=r)
+
+    @staticmethod
+    def before_next_page(player: Player, timeout_happened):
+        # check if the guess was right and save in a vector of guesses
+        row = player.row16[1:-1]
+        participant = player.participant
+        row = [int(s) for s in row.split(' ')]
+        participant.sound.append(row[-1])
+        if player.guess16 == row[-1]:
+            participant.guesses.append(1)
+        else:
+            participant.guesses.append(0)
+
+
+class Guess17(Page):
+    form_model = 'player'
+    form_fields = ['guess12']
+
+    @staticmethod
+    def vars_for_template(player: Player):
+        r = player.round_number
+        participant = player.participant
+        all_notes = participant.notes
+        notes = all_notes[r-1]
+
+        row = player.row17[1:-1]
+        row = [int(s) for s in row.split(' ')]
+
+        evaluated = html_table(row, player.n_lights)
+
+        return dict(notes=notes, table=evaluated, round=r)
+
+    @staticmethod
+    def before_next_page(player: Player, timeout_happened):
+        # check if the guess was right and save in a vector of guesses
+        row = player.row17[1:-1]
+        participant = player.participant
+        row = [int(s) for s in row.split(' ')]
+        participant.sound.append(row[-1])
+        if player.guess17 == row[-1]:
+            participant.guesses.append(1)
+        else:
+            participant.guesses.append(0)
+
+
+class Guess18(Page):
+    form_model = 'player'
+    form_fields = ['guess18']
+
+    @staticmethod
+    def vars_for_template(player: Player):
+        r = player.round_number
+        participant = player.participant
+        all_notes = participant.notes
+        notes = all_notes[r-1]
+
+        row = player.row18[1:-1]
+        row = [int(s) for s in row.split(' ')]
+
+        evaluated = html_table(row, player.n_lights)
+
+        return dict(notes=notes, table=evaluated, round=r)
+
+    @staticmethod
+    def before_next_page(player: Player, timeout_happened):
+        # check if the guess was right and save in a vector of guesses
+        row = player.row18[1:-1]
+        participant = player.participant
+        row = [int(s) for s in row.split(' ')]
+        participant.sound.append(row[-1])
+        if player.guess18 == row[-1]:
+            participant.guesses.append(1)
+        else:
+            participant.guesses.append(0)
+
+
+class Guess19(Page):
+    form_model = 'player'
+    form_fields = ['guess19']
+
+    @staticmethod
+    def vars_for_template(player: Player):
+        r = player.round_number
+        participant = player.participant
+        all_notes = participant.notes
+        notes = all_notes[r-1]
+
+        row = player.row19[1:-1]
+        row = [int(s) for s in row.split(' ')]
+
+        evaluated = html_table(row, player.n_lights)
+
+        return dict(notes=notes, table=evaluated, round=r)
+
+    @staticmethod
+    def before_next_page(player: Player, timeout_happened):
+        # check if the guess was right and save in a vector of guesses
+        row = player.row19[1:-1]
+        participant = player.participant
+        row = [int(s) for s in row.split(' ')]
+        participant.sound.append(row[-1])
+        if player.guess19 == row[-1]:
+            participant.guesses.append(1)
+        else:
+            participant.guesses.append(0)
+
+
+class Guess20(Page):
+    form_model = 'player'
+    form_fields = ['guess20']
+
+    @staticmethod
+    def vars_for_template(player: Player):
+        r = player.round_number
+        participant = player.participant
+        all_notes = participant.notes
+        notes = all_notes[r-1]
+
+        row = player.row20[1:-1]
+        row = [int(s) for s in row.split(' ')]
+
+        evaluated = html_table(row, player.n_lights)
+
+        return dict(notes=notes, table=evaluated, round=r)
+
+    @staticmethod
+    def before_next_page(player: Player, timeout_happened):
+        # check if the guess was right and save in a vector of guesses
+        row = player.row20[1:-1]
+        participant = player.participant
+        row = [int(s) for s in row.split(' ')]
+        participant.sound.append(row[-1])
+        if player.guess20 == row[-1]:
+            participant.guesses.append(1)
+        else:
+            participant.guesses.append(0)
+
+
+class Guess21(Page):
+    form_model = 'player'
+    form_fields = ['guess21']
+
+    @staticmethod
+    def vars_for_template(player: Player):
+        r = player.round_number
+        participant = player.participant
+        all_notes = participant.notes
+        notes = all_notes[r-1]
+
+        row = player.row21[1:-1]
+        row = [int(s) for s in row.split(' ')]
+
+        evaluated = html_table(row, player.n_lights)
+
+        return dict(notes=notes, table=evaluated, round=r)
+
+    @staticmethod
+    def before_next_page(player: Player, timeout_happened):
+        # check if the guess was right and save in a vector of guesses
+        row = player.row21[1:-1]
+        participant = player.participant
+        row = [int(s) for s in row.split(' ')]
+        participant.sound.append(row[-1])
+        if player.guess21 == row[-1]:
+            participant.guesses.append(1)
+        else:
+            participant.guesses.append(0)
+
+
+class Guess22(Page):
+    form_model = 'player'
+    form_fields = ['guess22']
+
+    @staticmethod
+    def vars_for_template(player: Player):
+        r = player.round_number
+        participant = player.participant
+        all_notes = participant.notes
+        notes = all_notes[r-1]
+
+        row = player.row22[1:-1]
+        row = [int(s) for s in row.split(' ')]
+
+        evaluated = html_table(row, player.n_lights)
+
+        return dict(notes=notes, table=evaluated, round=r)
+
+    @staticmethod
+    def before_next_page(player: Player, timeout_happened):
+        # check if the guess was right and save in a vector of guesses
+        row = player.row22[1:-1]
+        participant = player.participant
+        row = [int(s) for s in row.split(' ')]
+        participant.sound.append(row[-1])
+        if player.guess22 == row[-1]:
+            participant.guesses.append(1)
+        else:
+            participant.guesses.append(0)
+
+
+class Guess23(Page):
+    form_model = 'player'
+    form_fields = ['guess23']
+
+    @staticmethod
+    def vars_for_template(player: Player):
+        r = player.round_number
+        participant = player.participant
+        all_notes = participant.notes
+        notes = all_notes[r-1]
+
+        row = player.row23[1:-1]
+        row = [int(s) for s in row.split(' ')]
+
+        evaluated = html_table(row, player.n_lights)
+
+        return dict(notes=notes, table=evaluated, round=r)
+
+    @staticmethod
+    def before_next_page(player: Player, timeout_happened):
+        # check if the guess was right and save in a vector of guesses
+        row = player.row23[1:-1]
+        participant = player.participant
+        row = [int(s) for s in row.split(' ')]
+        participant.sound.append(row[-1])
+        if player.guess23 == row[-1]:
+            participant.guesses.append(1)
+        else:
+            participant.guesses.append(0)
+
+
+class Guess24(Page):
+    form_model = 'player'
+    form_fields = ['guess24']
+
+    @staticmethod
+    def vars_for_template(player: Player):
+        r = player.round_number
+        participant = player.participant
+        all_notes = participant.notes
+        notes = all_notes[r-1]
+
+        row = player.row24[1:-1]
+        row = [int(s) for s in row.split(' ')]
+
+        evaluated = html_table(row, player.n_lights)
+
+        return dict(notes=notes, table=evaluated, round=r)
+
+    @staticmethod
+    def before_next_page(player: Player, timeout_happened):
+        # check if the guess was right and save in a vector of guesses
+        row = player.row24[1:-1]
+        participant = player.participant
+        row = [int(s) for s in row.split(' ')]
+        participant.sound.append(row[-1])
+        if player.guess24 == row[-1]:
+            participant.guesses.append(1)
+        else:
+            participant.guesses.append(0)
+
+
+class Guess25(Page):
+    form_model = 'player'
+    form_fields = ['guess25']
+
+    @staticmethod
+    def vars_for_template(player: Player):
+        r = player.round_number
+        participant = player.participant
+        all_notes = participant.notes
+        notes = all_notes[r-1]
+
+        row = player.row25[1:-1]
+        row = [int(s) for s in row.split(' ')]
+
+        evaluated = html_table(row, player.n_lights)
+
+        return dict(notes=notes, table=evaluated, round=r)
+
+    @staticmethod
+    def before_next_page(player: Player, timeout_happened):
+        # check if the guess was right and save in a vector of guesses
+        row = player.row25[1:-1]
+        participant = player.participant
+        row = [int(s) for s in row.split(' ')]
+        participant.sound.append(row[-1])
+        if player.guess25 == row[-1]:
+            participant.guesses.append(1)
+        else:
+            participant.guesses.append(0)
+
+
+class Guess26(Page):
+    form_model = 'player'
+    form_fields = ['guess26']
+
+    @staticmethod
+    def vars_for_template(player: Player):
+        r = player.round_number
+        participant = player.participant
+        all_notes = participant.notes
+        notes = all_notes[r-1]
+
+        row = player.row26[1:-1]
+        row = [int(s) for s in row.split(' ')]
+
+        evaluated = html_table(row, player.n_lights)
+
+        return dict(notes=notes, table=evaluated, round=r)
+
+    @staticmethod
+    def before_next_page(player: Player, timeout_happened):
+        # check if the guess was right and save in a vector of guesses
+        row = player.row26[1:-1]
+        participant = player.participant
+        row = [int(s) for s in row.split(' ')]
+        participant.sound.append(row[-1])
+        if player.guess26 == row[-1]:
+            participant.guesses.append(1)
+        else:
+            participant.guesses.append(0)
+
+
+class Guess27(Page):
+    form_model = 'player'
+    form_fields = ['guess27']
+
+    @staticmethod
+    def vars_for_template(player: Player):
+        r = player.round_number
+        participant = player.participant
+        all_notes = participant.notes
+        notes = all_notes[r-1]
+
+        row = player.row27[1:-1]
+        row = [int(s) for s in row.split(' ')]
+
+        evaluated = html_table(row, player.n_lights)
+
+        return dict(notes=notes, table=evaluated, round=r)
+
+    @staticmethod
+    def before_next_page(player: Player, timeout_happened):
+        # check if the guess was right and save in a vector of guesses
+        row = player.row27[1:-1]
+        participant = player.participant
+        row = [int(s) for s in row.split(' ')]
+        participant.sound.append(row[-1])
+        if player.guess27 == row[-1]:
+            participant.guesses.append(1)
+        else:
+            participant.guesses.append(0)
+
 
 class MyWaitPage(WaitPage):
     # wait between stages 2 and 3.
@@ -505,4 +1083,6 @@ class ResultsWaitPage(WaitPage):
 
 page_sequence = [Instructions, Machine,
                  Guess1, Guess2, Guess3, Guess4, Guess5, Guess6, Guess7, Guess8, Guess9, Guess10,
+                 Guess11, Guess12, Guess13, Guess14, Guess15, Guess16, Guess17, Guess18, Guess19, Guess20,
+                 Guess21, Guess22, Guess23, Guess24, Guess25, Guess26, Guess27,
                  MyWaitPage]
