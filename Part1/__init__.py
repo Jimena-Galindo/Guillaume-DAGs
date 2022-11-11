@@ -10,7 +10,7 @@ class C(BaseConstants):
     NAME_IN_URL = 'Part1'
     PLAYERS_PER_GROUP = None
     # there must be as many rounds as there are cases in the case_list defined in the instructions page
-    NUM_ROUNDS = 11
+    NUM_ROUNDS = 7
     N_trials = 27
 
 
@@ -305,10 +305,10 @@ class Instructions(Page):
             freq3 = [9, 2, 1, 8, 0, 3, 0, 4]
             freq4 = [3, 1, 3, 1, 2, 8, 2, 7]
             freq5 = [4, 0, 4, 1, 1, 8, 1, 8]
-            freq6 = [3, 1, 3, 1, 4, 14, 0, 1]
-            freq7 = [6, 1, 2, 0, 2, 15, 0, 1]
-            freq8 = [9, 5, 0, 2, 0, 7, 1, 3]
-            freq9 = [10, 3, 0, 1, 0, 12, 0, 1]
+            # freq6 = [3, 1, 3, 1, 4, 14, 0, 1]
+            # freq7 = [6, 1, 2, 0, 2, 15, 0, 1]
+            # freq8 = [9, 5, 0, 2, 0, 7, 1, 3]
+            # freq9 = [10, 3, 0, 1, 0, 12, 0, 1]
             freq10 = [0, 0, 2, 1, 4, 15, 4, 1]
             freq11 = [1, 0, 3, 0, 2, 15, 5, 1]
 
@@ -344,10 +344,6 @@ class Instructions(Page):
                          [case1, freq3, '2L'],
                          [case1, freq4, '3H'],
                          [case1, freq5, '3L'],
-                         [case1, freq6, '4H'],
-                         [case1, freq7, '4L'],
-                         [case1, freq8, '5H'],
-                         [case1, freq9, '5L'],
                          [case1, freq10, '7H'],
                          [case1, freq11, '7L']]
 
