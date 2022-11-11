@@ -13,7 +13,7 @@ class C(BaseConstants):
     NAME_IN_URL = 'Part2'
     PLAYERS_PER_GROUP = None
     # the number of rounds must be equal to the number of cases that will be shown
-    NUM_ROUNDS = 2
+    NUM_ROUNDS = 7
 
 
 class Subsession(BaseSubsession):
