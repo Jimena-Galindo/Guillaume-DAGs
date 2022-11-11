@@ -726,7 +726,7 @@ class Guess16(Page):
 
 class Guess17(Page):
     form_model = 'player'
-    form_fields = ['guess12']
+    form_fields = ['guess17']
 
     @staticmethod
     def vars_for_template(player: Player):
