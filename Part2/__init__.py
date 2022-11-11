@@ -143,6 +143,12 @@ class Instructions(Page):
             return 'the password is incorrect'
 
 
+class Machine(Page):
+    @staticmethod
+    def vars_for_template(player: Player):
+        return dict(r=player.round_number)
+
+
 class Guess1(Page):
     # All 10 pages follow the same structure as this one. Only the code in Page1 has comments (sorry)
     form_model = 'player'
@@ -497,6 +503,6 @@ class ResultsWaitPage(WaitPage):
     pass
 
 
-page_sequence = [Instructions,
+page_sequence = [Instructions, Machine,
                  Guess1, Guess2, Guess3, Guess4, Guess5, Guess6, Guess7, Guess8, Guess9, Guess10,
                  MyWaitPage]
