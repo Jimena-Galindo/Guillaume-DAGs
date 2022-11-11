@@ -5,7 +5,13 @@ SESSION_CONFIGS = [
     dict(
         name='Part1_Part2',
         num_demo_participants=2,
-        app_sequence=['Part1', 'Part2']
+        app_sequence=['Part1', 'Part2', 'Pay']
+    ),
+
+    dict(
+        name='Part1_Part2_Part3',
+        num_demo_participants=2,
+        app_sequence=['Part1', 'Part2', 'Part3']
     ),
 ]
 

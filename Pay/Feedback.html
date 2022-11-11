@@ -1,0 +1,29 @@
+{{ block title }}
+    Thank you for participating
+{{ endblock }}
+
+{{ block content }}
+<p>You have reached the end of the experiment. </p> <p>Here is a summary of your payment:</p>
+
+<table class="table" style="width: 30%; border: transparent">
+    <tr>
+        <td>
+            Show up fee:
+        </td>
+        <td> $10 </td>
+    </tr>
+    <tr>
+        <td>Payment in selected guess:</td>
+        <td>
+            ${{p2}}
+        </td>
+    </tr>
+    <tr>
+        <td>Total payment:</td>
+        <td>{{total}}</td>
+    </tr>
+
+</table>
+
+
+{{endblock}}

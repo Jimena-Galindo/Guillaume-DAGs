@@ -13,7 +13,7 @@ class C(BaseConstants):
     NAME_IN_URL = 'Part2'
     PLAYERS_PER_GROUP = None
     # the number of rounds must be equal to the number of cases that will be shown
-    NUM_ROUNDS = 7
+    NUM_ROUNDS = 2
 
 
 class Subsession(BaseSubsession):
@@ -177,7 +177,7 @@ class Instructions(Page):
             return 'the password is incorrect'
 
 
-class Machine(Page):
+class Transition(Page):
     @staticmethod
     def vars_for_template(player: Player):
         return dict(r=player.round_number)
@@ -1065,24 +1065,11 @@ class Guess27(Page):
             participant.guesses.append(0)
 
 
-class MyWaitPage(WaitPage):
-    # wait between stages 2 and 3.
-    @staticmethod
-    def is_displayed(player):
-        return player.round_number == C.NUM_ROUNDS
-
-    title_text = "End of Part 2"
-    body_text = "You have reached the end of Part 2. " \
-                "Before we move on to Part 3 we will wait for all other participants to finish Part 2"
-    wait_for_all_groups = True
-
-
 class ResultsWaitPage(WaitPage):
     pass
 
 
-page_sequence = [Instructions, Machine,
+page_sequence = [Instructions, Transition,
                  Guess1, Guess2, Guess3, Guess4, Guess5, Guess6, Guess7, Guess8, Guess9, Guess10,
                  Guess11, Guess12, Guess13, Guess14, Guess15, Guess16, Guess17, Guess18, Guess19, Guess20,
-                 Guess21, Guess22, Guess23, Guess24, Guess25, Guess26, Guess27,
-                 MyWaitPage]
+                 Guess21, Guess22, Guess23, Guess24, Guess25, Guess26, Guess27]

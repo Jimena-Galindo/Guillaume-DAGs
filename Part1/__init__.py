@@ -10,7 +10,7 @@ class C(BaseConstants):
     NAME_IN_URL = 'Part1'
     PLAYERS_PER_GROUP = None
     # there must be as many rounds as there are cases in the case_list defined in the instructions page
-    NUM_ROUNDS = 7
+    NUM_ROUNDS = 2
     N_trials = 27
 
 
@@ -355,7 +355,7 @@ class Instructions(Page):
             player.case_order = str(participant.cases_ordered)
 
 
-class DAG1(Page):
+class Machine(Page):
     form_model = 'player'
     form_fields = ['notes']
 
@@ -388,6 +388,12 @@ class DAG1(Page):
         all_notes.append(player.notes)
         participant.notes = all_notes
 
+    @staticmethod
+    def error_message(player, values):
+
+        if len(values['notes']) > 280:
+            return 'Your notes are too long. Please use at most 280 characters'
+
 
 class MyWaitPage(WaitPage):
     # this wait page is not necessary. It is here to get everyone up to the same point and possibly shorten the necessary
@@ -406,4 +412,4 @@ class ResultsWaitPage(WaitPage):
     pass
 
 
-page_sequence = [Instructions, DAG1, MyWaitPage]
+page_sequence = [Instructions, Machine, MyWaitPage]

@@ -172,6 +172,18 @@ def notes_table(notes):
 
 
 # PAGES
+class MyWaitPage(WaitPage):
+    # wait between stages 2 and 3.
+    @staticmethod
+    def is_displayed(player):
+        return player.round_number == 1
+
+    title_text = "End of Part 2"
+    body_text = "You have reached the end of Part 2. " \
+                "Before we move on to Part 3 we will wait for all other participants to finish Part 2"
+    wait_for_all_groups = True
+
+
 class Instructions(Page):
     form_model = 'player'
     form_fields = ['password']
@@ -289,7 +301,7 @@ class Feedback(Page):
         pay2 = 0
         pay3 = 0
         if part == 2:
-            draw = random.sample([i for i in range(20)], 1)
+            draw = random.sample([i for i in range(len(participant.guesses)-1)], 1)
             if participant.guesses[draw[0]] == participant.sound[draw[0]]:
                 pay2 = 25
                 player.payoff += 25
@@ -312,4 +324,4 @@ class ResultsWaitPage(WaitPage):
     pass
 
 
-page_sequence = [Instructions, LightChoice, Guess1, Feedback]
+page_sequence = [MyWaitPage, Instructions, LightChoice, Guess1, Feedback]
