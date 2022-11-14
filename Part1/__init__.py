@@ -26,6 +26,7 @@ class Player(BasePlayer):
     notes = models.LongStringField()
     case = models.StringField()
     case_order = models.StringField()
+    error = models.IntegerField(initial=0)
 
 
 # FUNCTIONS
@@ -372,11 +373,7 @@ class Machine(Page):
 
         # save the case matrix as a string for the player. The cases are also saves as matrices at the participant level
         player.case = str(matrix)
-        realized_cases = participant.realized_cases
-
-        # this saves the realized cases (ordered and with the repeated rows as a list of matrices)
-        realized_cases.append(matrix)
-        participant.realized_cases = realized_cases
+        participant.current_case = matrix
 
         return dict(table=evaluated[0], round=r)
 
@@ -387,11 +384,14 @@ class Machine(Page):
         all_notes = participant.notes
         all_notes.append(player.notes)
         participant.notes = all_notes
+        # this saves the (last if there was an error and the page reloaded) realized cases
+        # (ordered and with the repeated rows as a list of matrices)
+        participant.realized_cases.append(participant.current_case)
 
     @staticmethod
     def error_message(player, values):
-
         if len(values['notes']) > 280:
+            player.error = 1
             return 'Your notes are too long. Please use at most 280 characters'
 
 

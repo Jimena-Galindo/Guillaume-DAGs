@@ -3,9 +3,9 @@ import numpy as np
 import random
 
 doc = """
-Get the note written in Guess if the sound is heard or not for 10 random trials of each case. Each row is shown 
-in a different page (there are 10 pages of guesses per round. The case changes on each round in the same order as 
-they were shown in part1. The order of rows is shuffled again
+Get the note written in Guess if the sound is heard or not for 27 random trials of each machine. Each row is shown 
+in a different page (there are 27 pages of guesses per round). The machine changes on each round in the same order as 
+they were shown in part1. The order of trials is shuffled again
 """
 
 

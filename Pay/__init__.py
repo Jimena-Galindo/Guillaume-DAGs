@@ -3,7 +3,7 @@ import numpy as np
 import random
 
 doc = """
-Get the note written in Guess if the sound is heard or not for a single trial for which only one light is shown.
+draw a single guess from part 2 for payment
 """
 
 

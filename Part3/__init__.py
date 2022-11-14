@@ -53,10 +53,6 @@ class Player(BasePlayer):
     light5 = make_field(' ', 2)
     light6 = make_field(' ', 2)
     light7 = make_field(' ', 2)
-    light8 = make_field(' ', 2)
-    light9 = make_field(' ', 2)
-    light10 = make_field(' ', 2)
-    light11 = make_field(' ', 2)
 
     password = models.StringField()
 
@@ -208,11 +204,7 @@ class LightChoice(Page):
                    'light4',
                    'light5',
                    'light6',
-                   'light7',
-                   'light8',
-                   'light9',
-                   'light10',
-                   'light11']
+                   'light7']
 
     @staticmethod
     def vars_for_template(player: Player):
@@ -233,11 +225,7 @@ class LightChoice(Page):
                                   player.light4,
                                   player.light5,
                                   player.light6,
-                                  player.light7,
-                                  player.light8,
-                                  player.light9,
-                                  player.light10,
-                                  player.light11]
+                                  player.light7]
 
 
 class Guess1(Page):
