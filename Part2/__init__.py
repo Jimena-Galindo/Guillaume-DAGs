@@ -13,7 +13,7 @@ class C(BaseConstants):
     NAME_IN_URL = 'Part2'
     PLAYERS_PER_GROUP = None
     # the number of rounds must be equal to the number of cases that will be shown
-    NUM_ROUNDS = 7
+    NUM_ROUNDS = 11
 
 
 class Subsession(BaseSubsession):
@@ -164,17 +164,17 @@ def html_table(row, n_lights):
 
 # PAGES
 class Instructions(Page):
-    form_model = 'player'
-    form_fields = ['password']
+    # form_model = 'player'
+    # form_fields = ['password']
 
     @staticmethod
     def is_displayed(player: Player):
         return player.round_number == 1
 
-    @staticmethod
-    def error_message(player, values):
-        if values['password'] != '45RT':
-            return 'the password is incorrect'
+    # @staticmethod
+    # def error_message(player, values):
+        # if values['password'] != '45RT':
+            # return 'the password is incorrect'
 
 
 class Transition(Page):
