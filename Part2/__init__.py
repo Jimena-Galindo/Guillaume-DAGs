@@ -231,7 +231,7 @@ class Guess1(Page):
         player.row18 = str(case_10[17])
         player.row19 = str(case_10[18])
         player.row20 = str(case_10[19])
-        player.row21 = str(case_10[10])
+        player.row21 = str(case_10[20])
         player.row22 = str(case_10[21])
         player.row23 = str(case_10[22])
         player.row24 = str(case_10[23])
