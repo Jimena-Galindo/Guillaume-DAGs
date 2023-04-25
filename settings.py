@@ -32,7 +32,7 @@ SESSION_CONFIG_DEFAULTS = dict(
 )
 
 PARTICIPANT_FIELDS = ['notes', 'cases_ordered', 'realized_cases', 'light_list', 'guesses', 'order_names', 'sound',
-                      'current_case']
+                      'current_case', 'original_color']
 
 SESSION_FIELDS = []
 

@@ -88,11 +88,12 @@ class Player(BasePlayer):
     row27 = models.StringField()
 
     password = models.StringField()
+    original_color = models.IntegerField()
 
 
 # FUNCTIONS
 # translate each of the sampled case rows to the html table it can take 2 or 3 lights
-def html_table(row, n_lights):
+def html_table_original(row, n_lights):
     # row is a row taken from a case from part 1. The case can have either 4 columns (Red, Blue, others, sound) or
     # it can have 5 columns (Red, Blue, Green, others, Sound)
 
@@ -162,6 +163,77 @@ def html_table(row, n_lights):
     return table
 
 
+def html_table_flipped(row, n_lights):
+    # this table has the opposite colors but takes the data in in the same order.
+    # row is a row taken from a case from part 1. The case can have either 4 columns (Red, Blue, others, sound) or
+    # it can have 5 columns (Red, Blue, Green, others, Sound)
+
+    # 2 lights: Red, Blue (and Others)
+    if n_lights == 4:
+
+        # Translate the binary matrix into a html matrix
+        red = []
+        blue = []
+        other = ['&#x3f']
+
+        # red lights (they are still called red but the color shown is blue)
+        if row[0] == 1:
+            red.append('<div class="circle_blue"></div>')
+        else:
+            red.append('<div class="circle_blue_off"></div>')
+
+        # blue lights (they are still called blue but the color shown is red)
+        if row[1] == 1:
+            blue.append('<div class="circle_red"></div>')
+        else:
+            blue.append('<div class="circle_red_off"></div>')
+
+        html_mat = np.column_stack((red, blue, other))
+
+        # Write out the html table code
+        table = '<table class="table" style="text-align: center; vertical-align:middle">' \
+            '<tr><th>Blue Light</th><th>Red Light</th><th>Other Lights</th></tr><tr height="95px"><td>' \
+                + html_mat[0][0] + '</td><td>' + html_mat[0][1] + '</td><td>' + html_mat[0][2] + '</td></tr></table>'
+
+    # 3 lights: Red, Blue, Green (and Others)
+    if n_lights == 5:
+
+        # Translate the binary matrix into a html matrix
+        red = []
+        blue = []
+        green = []
+        other = ['&#x3f']
+
+        # red lights
+        if row[0] == 1:
+            red.append('<div class="circle_blue"></div>')
+        else:
+            red.append('<div class="circle_blue_off"></div>')
+
+        # blue lights
+        if row[1] == 1:
+            blue.append('<div class="circle_red"></div>')
+        else:
+            blue.append('<div class="circle_red_off"></div>')
+
+        # green lights
+        if row[1] == 1:
+            green.append('<div class="circle_green"></div>')
+        else:
+            green.append('<div class="circle_green_off"></div>')
+
+        html_mat = np.column_stack((red, blue, green, other))
+
+        # Write out the html table code
+        table = '<table class="table" style="text-align: center; vertical-align:middle">' \
+            '<tr><th>Blue Light</th><th>Red Light</th><th>Green Light</th><th>Other Lights</th></tr>'\
+            '<tr height="95px; vertical-align:middle"><td>' + html_mat[0][0] + '</td><td>' + html_mat[0][1] + \
+                '</td><td>' + html_mat[0][2] + \
+                '</td><td>' + html_mat[0][3] + '</td></tr></table>'
+
+    return table
+
+
 # PAGES
 class Instructions(Page):
     # form_model = 'player'
@@ -180,6 +252,8 @@ class Instructions(Page):
 class Transition(Page):
     @staticmethod
     def vars_for_template(player: Player):
+        participant = player.participant
+        player.original_color = participant.original_color[player.round_number - 1]
         return dict(r=player.round_number)
 
 
@@ -243,7 +317,10 @@ class Guess1(Page):
         row = [int(s) for s in case_10[0]]
 
         # pass the row to the function that prints out the html
-        evaluated = html_table(row, n_lights)
+        if player.original_color == 1:
+            evaluated = html_table_original(row, n_lights)
+        else:
+            evaluated = html_table_flipped(row, n_lights)
 
         return dict(notes=notes, table=evaluated, round=r, lights=n_lights)
 
@@ -274,7 +351,10 @@ class Guess2(Page):
         row = player.row2[1:-1]
         row = [int(s) for s in row.split(' ')]
 
-        evaluated = html_table(row, player.n_lights)
+        if player.original_color == 1:
+            evaluated = html_table_original(row, player.n_lights)
+        else:
+            evaluated = html_table_flipped(row, player.n_lights)
 
         return dict(notes=notes, table=evaluated, round=r)
 
@@ -305,7 +385,10 @@ class Guess3(Page):
         row = player.row3[1:-1]
         row = [int(s) for s in row.split(' ')]
 
-        evaluated = html_table(row, player.n_lights)
+        if player.original_color == 1:
+            evaluated = html_table_original(row, player.n_lights)
+        else:
+            evaluated = html_table_flipped(row, player.n_lights)
 
         return dict(notes=notes, table=evaluated, round=r)
 
@@ -336,7 +419,10 @@ class Guess4(Page):
         row = player.row4[1:-1]
         row = [int(s) for s in row.split(' ')]
 
-        evaluated = html_table(row, player.n_lights)
+        if player.original_color == 1:
+            evaluated = html_table_original(row, player.n_lights)
+        else:
+            evaluated = html_table_flipped(row, player.n_lights)
 
         return dict(notes=notes, table=evaluated, round=r)
 
@@ -367,7 +453,10 @@ class Guess5(Page):
         row = player.row5[1:-1]
         row = [int(s) for s in row.split(' ')]
 
-        evaluated = html_table(row, player.n_lights)
+        if player.original_color == 1:
+            evaluated = html_table_original(row, player.n_lights)
+        else:
+            evaluated = html_table_flipped(row, player.n_lights)
 
         return dict(notes=notes, table=evaluated, round=r)
 
@@ -398,7 +487,10 @@ class Guess6(Page):
         row = player.row6[1:-1]
         row = [int(s) for s in row.split(' ')]
 
-        evaluated = html_table(row, player.n_lights)
+        if player.original_color == 1:
+            evaluated = html_table_original(row, player.n_lights)
+        else:
+            evaluated = html_table_flipped(row, player.n_lights)
 
         return dict(notes=notes, table=evaluated, round=r)
 
@@ -429,7 +521,10 @@ class Guess7(Page):
         row = player.row7[1:-1]
         row = [int(s) for s in row.split(' ')]
 
-        evaluated = html_table(row, player.n_lights)
+        if player.original_color == 1:
+            evaluated = html_table_original(row, player.n_lights)
+        else:
+            evaluated = html_table_flipped(row, player.n_lights)
 
         return dict(notes=notes, table=evaluated, round=r)
 
@@ -460,7 +555,10 @@ class Guess8(Page):
         row = player.row8[1:-1]
         row = [int(s) for s in row.split(' ')]
 
-        evaluated = html_table(row, player.n_lights)
+        if player.original_color == 1:
+            evaluated = html_table_original(row, player.n_lights)
+        else:
+            evaluated = html_table_flipped(row, player.n_lights)
 
         return dict(notes=notes, table=evaluated, round=r)
 
@@ -491,7 +589,10 @@ class Guess9(Page):
         row = player.row9[1:-1]
         row = [int(s) for s in row.split(' ')]
 
-        evaluated = html_table(row, player.n_lights)
+        if player.original_color == 1:
+            evaluated = html_table_original(row, player.n_lights)
+        else:
+            evaluated = html_table_flipped(row, player.n_lights)
 
         return dict(notes=notes, table=evaluated, round=r)
 
@@ -522,7 +623,10 @@ class Guess10(Page):
         row = player.row10[1:-1]
         row = [int(s) for s in row.split(' ')]
 
-        evaluated = html_table(row, player.n_lights)
+        if player.original_color == 1:
+            evaluated = html_table_original(row, player.n_lights)
+        else:
+            evaluated = html_table_flipped(row, player.n_lights)
 
         return dict(notes=notes, table=evaluated, round=r)
 
@@ -552,7 +656,10 @@ class Guess11(Page):
         row = player.row11[1:-1]
         row = [int(s) for s in row.split(' ')]
 
-        evaluated = html_table(row, player.n_lights)
+        if player.original_color == 1:
+            evaluated = html_table_original(row, player.n_lights)
+        else:
+            evaluated = html_table_flipped(row, player.n_lights)
 
         return dict(notes=notes, table=evaluated, round=r)
 
@@ -583,7 +690,10 @@ class Guess12(Page):
         row = player.row12[1:-1]
         row = [int(s) for s in row.split(' ')]
 
-        evaluated = html_table(row, player.n_lights)
+        if player.original_color == 1:
+            evaluated = html_table_original(row, player.n_lights)
+        else:
+            evaluated = html_table_flipped(row, player.n_lights)
 
         return dict(notes=notes, table=evaluated, round=r)
 
@@ -614,7 +724,10 @@ class Guess13(Page):
         row = player.row13[1:-1]
         row = [int(s) for s in row.split(' ')]
 
-        evaluated = html_table(row, player.n_lights)
+        if player.original_color == 1:
+            evaluated = html_table_original(row, player.n_lights)
+        else:
+            evaluated = html_table_flipped(row, player.n_lights)
 
         return dict(notes=notes, table=evaluated, round=r)
 
@@ -645,7 +758,10 @@ class Guess14(Page):
         row = player.row14[1:-1]
         row = [int(s) for s in row.split(' ')]
 
-        evaluated = html_table(row, player.n_lights)
+        if player.original_color == 1:
+            evaluated = html_table_original(row, player.n_lights)
+        else:
+            evaluated = html_table_flipped(row, player.n_lights)
 
         return dict(notes=notes, table=evaluated, round=r)
 
@@ -676,7 +792,10 @@ class Guess15(Page):
         row = player.row15[1:-1]
         row = [int(s) for s in row.split(' ')]
 
-        evaluated = html_table(row, player.n_lights)
+        if player.original_color == 1:
+            evaluated = html_table_original(row, player.n_lights)
+        else:
+            evaluated = html_table_flipped(row, player.n_lights)
 
         return dict(notes=notes, table=evaluated, round=r)
 
@@ -707,7 +826,10 @@ class Guess16(Page):
         row = player.row16[1:-1]
         row = [int(s) for s in row.split(' ')]
 
-        evaluated = html_table(row, player.n_lights)
+        if player.original_color == 1:
+            evaluated = html_table_original(row, player.n_lights)
+        else:
+            evaluated = html_table_flipped(row, player.n_lights)
 
         return dict(notes=notes, table=evaluated, round=r)
 
@@ -738,7 +860,10 @@ class Guess17(Page):
         row = player.row17[1:-1]
         row = [int(s) for s in row.split(' ')]
 
-        evaluated = html_table(row, player.n_lights)
+        if player.original_color == 1:
+            evaluated = html_table_original(row, player.n_lights)
+        else:
+            evaluated = html_table_flipped(row, player.n_lights)
 
         return dict(notes=notes, table=evaluated, round=r)
 
@@ -769,7 +894,10 @@ class Guess18(Page):
         row = player.row18[1:-1]
         row = [int(s) for s in row.split(' ')]
 
-        evaluated = html_table(row, player.n_lights)
+        if player.original_color == 1:
+            evaluated = html_table_original(row, player.n_lights)
+        else:
+            evaluated = html_table_flipped(row, player.n_lights)
 
         return dict(notes=notes, table=evaluated, round=r)
 
@@ -800,7 +928,10 @@ class Guess19(Page):
         row = player.row19[1:-1]
         row = [int(s) for s in row.split(' ')]
 
-        evaluated = html_table(row, player.n_lights)
+        if player.original_color == 1:
+            evaluated = html_table_original(row, player.n_lights)
+        else:
+            evaluated = html_table_flipped(row, player.n_lights)
 
         return dict(notes=notes, table=evaluated, round=r)
 
@@ -831,7 +962,10 @@ class Guess20(Page):
         row = player.row20[1:-1]
         row = [int(s) for s in row.split(' ')]
 
-        evaluated = html_table(row, player.n_lights)
+        if player.original_color == 1:
+            evaluated = html_table_original(row, player.n_lights)
+        else:
+            evaluated = html_table_flipped(row, player.n_lights)
 
         return dict(notes=notes, table=evaluated, round=r)
 
@@ -862,7 +996,10 @@ class Guess21(Page):
         row = player.row21[1:-1]
         row = [int(s) for s in row.split(' ')]
 
-        evaluated = html_table(row, player.n_lights)
+        if player.original_color == 1:
+            evaluated = html_table_original(row, player.n_lights)
+        else:
+            evaluated = html_table_flipped(row, player.n_lights)
 
         return dict(notes=notes, table=evaluated, round=r)
 
@@ -893,7 +1030,10 @@ class Guess22(Page):
         row = player.row22[1:-1]
         row = [int(s) for s in row.split(' ')]
 
-        evaluated = html_table(row, player.n_lights)
+        if player.original_color == 1:
+            evaluated = html_table_original(row, player.n_lights)
+        else:
+            evaluated = html_table_flipped(row, player.n_lights)
 
         return dict(notes=notes, table=evaluated, round=r)
 
@@ -924,7 +1064,10 @@ class Guess23(Page):
         row = player.row23[1:-1]
         row = [int(s) for s in row.split(' ')]
 
-        evaluated = html_table(row, player.n_lights)
+        if player.original_color == 1:
+            evaluated = html_table_original(row, player.n_lights)
+        else:
+            evaluated = html_table_flipped(row, player.n_lights)
 
         return dict(notes=notes, table=evaluated, round=r)
 
@@ -955,7 +1098,10 @@ class Guess24(Page):
         row = player.row24[1:-1]
         row = [int(s) for s in row.split(' ')]
 
-        evaluated = html_table(row, player.n_lights)
+        if player.original_color == 1:
+            evaluated = html_table_original(row, player.n_lights)
+        else:
+            evaluated = html_table_flipped(row, player.n_lights)
 
         return dict(notes=notes, table=evaluated, round=r)
 
@@ -986,7 +1132,10 @@ class Guess25(Page):
         row = player.row25[1:-1]
         row = [int(s) for s in row.split(' ')]
 
-        evaluated = html_table(row, player.n_lights)
+        if player.original_color == 1:
+            evaluated = html_table_original(row, player.n_lights)
+        else:
+            evaluated = html_table_flipped(row, player.n_lights)
 
         return dict(notes=notes, table=evaluated, round=r)
 
@@ -1017,7 +1166,10 @@ class Guess26(Page):
         row = player.row26[1:-1]
         row = [int(s) for s in row.split(' ')]
 
-        evaluated = html_table(row, player.n_lights)
+        if player.original_color == 1:
+            evaluated = html_table_original(row, player.n_lights)
+        else:
+            evaluated = html_table_flipped(row, player.n_lights)
 
         return dict(notes=notes, table=evaluated, round=r)
 
@@ -1048,7 +1200,10 @@ class Guess27(Page):
         row = player.row27[1:-1]
         row = [int(s) for s in row.split(' ')]
 
-        evaluated = html_table(row, player.n_lights)
+        if player.original_color == 1:
+            evaluated = html_table_original(row, player.n_lights)
+        else:
+            evaluated = html_table_flipped(row, player.n_lights)
 
         return dict(notes=notes, table=evaluated, round=r)
 
