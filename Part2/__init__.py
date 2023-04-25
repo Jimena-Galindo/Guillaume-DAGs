@@ -188,7 +188,7 @@ def html_table_flipped(row, n_lights):
         else:
             blue.append('<div class="circle_red_off"></div>')
 
-        html_mat = np.column_stack((red, blue, other))
+        html_mat = np.column_stack((blue, red, other))
 
         # Write out the html table code
         table = '<table class="table" style="text-align: center; vertical-align:middle">' \
@@ -222,7 +222,7 @@ def html_table_flipped(row, n_lights):
         else:
             green.append('<div class="circle_green_off"></div>')
 
-        html_mat = np.column_stack((red, blue, green, other))
+        html_mat = np.column_stack((blue, red, green, other))
 
         # Write out the html table code
         table = '<table class="table" style="text-align: center; vertical-align:middle">' \

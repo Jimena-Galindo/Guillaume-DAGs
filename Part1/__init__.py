@@ -300,15 +300,15 @@ def html_table_freqs_flipped(case, freq):
         sound = []
         other = ['&#x3f'] * sum(freq)
 
-        # still called red but the color shown is blue
+
         for i in range(sum(freq)):
-            # red lights
+            # red lights still called red but now the color shown is blue
             if h[i][0] == 1:
                 red.append('<div class="circle_blue"></div>')
             else:
                 red.append('<div class="circle_blue_off"></div>')
 
-            # blue lights: still called blue but the color shown is red
+            # blue lights still called blue but now the color shown is red
             if h[i][1] == 1:
                 blue.append('<div class="circle_red"></div>')
             else:
@@ -319,14 +319,14 @@ def html_table_freqs_flipped(case, freq):
                 sound.append('&#x266A; DING &#x266A;')
             else:
                 sound.append('-')
-
-        html_mat = np.column_stack((red, blue, other, sound))
+        # stack the columns in order such that the first column is blue (shown as red) and the second is red (shown as blue)
+        html_mat = np.column_stack((blue, red, other, sound))
 
         # Write out the html table code
         table = '<table class="table" style="text-align: center; overflow-y: auto;">' \
                 '<tr style="height: 5px; font-size: 10px; padding: 3px; white-space: nowrap; border-collapse: collapse;">'\
-                '<th style="height: 5px; font-size: 12px; padding: 3px; white-space: nowrap; border-collapse: collapse;">Blue Light</th>' \
                 '<th style="height: 5px; font-size: 12px; padding: 3px; white-space: nowrap; border-collapse: collapse;">Red Light</th>' \
+                '<th style="height: 5px; font-size: 12px; padding: 3px; white-space: nowrap; border-collapse: collapse;">Blue Light</th>' \
                 '<th style="height: 5px; font-size: 12px; padding: 3px; white-space: nowrap; border-collapse: collapse;">Other Lights</th>' \
                 '<th style="height: 5px; font-size: 12px; padding: 3px; white-space: nowrap; border-collapse: collapse;">Sound</th></tr>'
 
