@@ -537,9 +537,9 @@ class Machine(Page):
 
     @staticmethod
     def error_message(player, values):
-        if len(values['notes']) > 280:
+        if len(values['notes']) > 75:
             player.error = 1
-            return 'Your notes are too long. Please use at most 280 characters'
+            return 'Your notes are too long. Please use at most 75 characters including spaces'
 
 
 class MyWaitPage(WaitPage):
