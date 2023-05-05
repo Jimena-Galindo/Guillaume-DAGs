@@ -436,17 +436,17 @@ class Instructions(Page):
             # the vector freq contains the number of repetitions for each of the rows in case. The length of freq
             # should be equal to the number of rows in case.
             # the sum of freq is the number of trials that will be shown to the subject.
-            freq1 = [8, 14, 1, 2, 0, 0, 1, 1]
-            freq2 = [8, 5, 1, 7, 0, 2, 1, 3]
-            freq3 = [9, 2, 1, 8, 0, 3, 0, 4]
-            freq4 = [3, 1, 3, 1, 2, 8, 2, 7]
-            freq5 = [4, 0, 4, 1, 1, 8, 1, 8]
-            freq6 = [3, 1, 3, 1, 4, 14, 0, 1]
-            freq7 = [6, 1, 2, 0, 2, 15, 0, 1]
-            freq8 = [9, 5, 0, 2, 0, 7, 1, 3]
-            freq9 = [10, 3, 0, 1, 0, 12, 0, 1]
-            freq10 = [0, 0, 2, 1, 4, 15, 4, 1]
-            freq11 = [1, 0, 3, 0, 2, 15, 5, 1]
+            freq1 =  [8, 14, 1, 2, 0,  0, 1, 1]
+            freq2 =  [8,  5, 1, 7, 0,  2, 1, 3]
+            freq3 =  [9,  2, 1, 8, 0,  3, 0, 4]
+            freq4 =  [3,  1, 3, 1, 2,  8, 2, 7]
+            freq5 =  [4,  0, 4, 1, 1,  8, 1, 8]
+            freq6 =  [3,  1, 3, 1, 4, 14, 0, 1]
+            freq7 =  [6,  1, 2, 0, 2, 15, 0, 1]
+            freq8 =  [9,  5, 0, 2, 0,  7, 1, 3]
+            freq9 =  [10, 3, 0, 1, 0, 12, 0, 1]
+            freq10 = [0,  0, 2, 1, 4, 15, 4, 1]
+            freq11 = [1,  0, 3, 0, 2, 15, 5, 1]
 
             # p is the probability that the red light is on, q is the same for the blue light and e is for other lights
             # p = 1/2

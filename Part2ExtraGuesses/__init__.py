@@ -10,7 +10,7 @@ they were shown in part1. The order of trials is shuffled again
 
 
 class C(BaseConstants):
-    NAME_IN_URL = 'Part2'
+    NAME_IN_URL = 'Part2E'
     PLAYERS_PER_GROUP = None
     # the number of rounds must be equal to the number of cases that will be shown
     NUM_ROUNDS = 11
@@ -58,6 +58,13 @@ class Player(BasePlayer):
     guess26 = models.IntegerField(choices=[[1, 'Ding'], [0, 'No Ding']], label='')
     guess27 = models.IntegerField(choices=[[1, 'Ding'], [0, 'No Ding']], label='')
 
+    guess28 = models.IntegerField(choices=[[1, 'Ding'], [0, 'No Ding']], label='')
+    guess29 = models.IntegerField(choices=[[1, 'Ding'], [0, 'No Ding']], label='')
+    guess30 = models.IntegerField(choices=[[1, 'Ding'], [0, 'No Ding']], label='')
+    guess31 = models.IntegerField(choices=[[1, 'Ding'], [0, 'No Ding']], label='')
+    guess32 = models.IntegerField(choices=[[1, 'Ding'], [0, 'No Ding']], label='')
+    guess33 = models.IntegerField(choices=[[1, 'Ding'], [0, 'No Ding']], label='')
+
     # Save each of the sampled rows as strings
     row1 = models.StringField()
     row2 = models.StringField()
@@ -86,6 +93,13 @@ class Player(BasePlayer):
     row25 = models.StringField()
     row26 = models.StringField()
     row27 = models.StringField()
+
+    row28 = models.StringField()
+    row29 = models.StringField()
+    row30 = models.StringField()
+    row31 = models.StringField()
+    row32 = models.StringField()
+    row33 = models.StringField()
 
     password = models.StringField()
     original_color = models.IntegerField()
@@ -312,6 +326,13 @@ class Guess1(Page):
         player.row25 = str(case_10[24])
         player.row26 = str(case_10[25])
         player.row27 = str(case_10[26])
+
+        player.row28 = '[1 0 0 1]'
+        player.row29 = '[0 0 0 0]'
+        player.row30 = '[1 1 0 1]'
+        player.row31 = '[0 0 0 0]'
+        player.row32 = '[1 0 0 1]'
+        player.row33 = '[1 0 0 1]'
 
 
         row = [int(s) for s in case_10[0]]
@@ -1220,6 +1241,162 @@ class Guess27(Page):
             participant.guesses.append(0)
 
 
+class Guess28(Page):
+    form_model = 'player'
+    form_fields = ['guess28']
+
+    @staticmethod
+    def vars_for_template(player: Player):
+        r = player.round_number
+        participant = player.participant
+        all_notes = participant.notes
+        notes = all_notes[r-1]
+
+        return dict(notes=notes, round=r, color=player.original_color)
+
+    @staticmethod
+    def before_next_page(player: Player, timeout_happened):
+        # check if the guess was right and save in a vector of guesses
+        row = player.row28[1:-1]
+        participant = player.participant
+        row = [int(s) for s in row.split(' ')]
+        participant.sound.append(row[-1])
+        if player.guess28 == row[-1]:
+            participant.guesses.append(1)
+        else:
+            participant.guesses.append(0)
+
+
+class Guess29(Page):
+    form_model = 'player'
+    form_fields = ['guess29']
+
+    @staticmethod
+    def vars_for_template(player: Player):
+        r = player.round_number
+        participant = player.participant
+        all_notes = participant.notes
+        notes = all_notes[r-1]
+
+        return dict(notes=notes, round=r, color=player.original_color)
+
+    @staticmethod
+    def before_next_page(player: Player, timeout_happened):
+        # check if the guess was right and save in a vector of guesses
+        row = player.row29[1:-1]
+        participant = player.participant
+        row = [int(s) for s in row.split(' ')]
+        participant.sound.append(row[-1])
+        if player.guess29 == row[-1]:
+            participant.guesses.append(1)
+        else:
+            participant.guesses.append(0)
+
+
+class Guess30(Page):
+    form_model = 'player'
+    form_fields = ['guess30']
+
+    @staticmethod
+    def vars_for_template(player: Player):
+        r = player.round_number
+        participant = player.participant
+        all_notes = participant.notes
+        notes = all_notes[r-1]
+
+        return dict(notes=notes, round=r, color=player.original_color)
+
+    @staticmethod
+    def before_next_page(player: Player, timeout_happened):
+        # check if the guess was right and save in a vector of guesses
+        row = player.row30[1:-1]
+        participant = player.participant
+        row = [int(s) for s in row.split(' ')]
+        participant.sound.append(row[-1])
+        if player.guess30 == row[-1]:
+            participant.guesses.append(1)
+        else:
+            participant.guesses.append(0)
+
+
+class Guess31(Page):
+    form_model = 'player'
+    form_fields = ['guess31']
+
+    @staticmethod
+    def vars_for_template(player: Player):
+        r = player.round_number
+        participant = player.participant
+        all_notes = participant.notes
+        notes = all_notes[r-1]
+
+        return dict(notes=notes, round=r, color=player.original_color)
+
+    @staticmethod
+    def before_next_page(player: Player, timeout_happened):
+        # check if the guess was right and save in a vector of guesses
+        row = player.row31[1:-1]
+        participant = player.participant
+        row = [int(s) for s in row.split(' ')]
+        participant.sound.append(row[-1])
+        if player.guess31 == row[-1]:
+            participant.guesses.append(1)
+        else:
+            participant.guesses.append(0)
+
+
+class Guess32(Page):
+    form_model = 'player'
+    form_fields = ['guess32']
+
+    @staticmethod
+    def vars_for_template(player: Player):
+        r = player.round_number
+        participant = player.participant
+        all_notes = participant.notes
+        notes = all_notes[r-1]
+
+        return dict(notes=notes, round=r, color=player.original_color)
+
+    @staticmethod
+    def before_next_page(player: Player, timeout_happened):
+        # check if the guess was right and save in a vector of guesses
+        row = player.row32[1:-1]
+        participant = player.participant
+        row = [int(s) for s in row.split(' ')]
+        participant.sound.append(row[-1])
+        if player.guess32 == row[-1]:
+            participant.guesses.append(1)
+        else:
+            participant.guesses.append(0)
+
+
+class Guess33(Page):
+    form_model = 'player'
+    form_fields = ['guess33']
+
+    @staticmethod
+    def vars_for_template(player: Player):
+        r = player.round_number
+        participant = player.participant
+        all_notes = participant.notes
+        notes = all_notes[r-1]
+
+        return dict(notes=notes, round=r, color=player.original_color)
+
+    @staticmethod
+    def before_next_page(player: Player, timeout_happened):
+        # check if the guess was right and save in a vector of guesses
+        row = player.row33[1:-1]
+        participant = player.participant
+        row = [int(s) for s in row.split(' ')]
+        participant.sound.append(row[-1])
+        if player.guess33 == row[-1]:
+            participant.guesses.append(1)
+        else:
+            participant.guesses.append(0)
+
+
 class ResultsWaitPage(WaitPage):
     pass
 
@@ -1227,4 +1404,5 @@ class ResultsWaitPage(WaitPage):
 page_sequence = [Instructions, Transition,
                  Guess1, Guess2, Guess3, Guess4, Guess5, Guess6, Guess7, Guess8, Guess9, Guess10,
                  Guess11, Guess12, Guess13, Guess14, Guess15, Guess16, Guess17, Guess18, Guess19, Guess20,
-                 Guess21, Guess22, Guess23, Guess24, Guess25, Guess26, Guess27]
+                 Guess21, Guess22, Guess23, Guess24, Guess25, Guess26, Guess27,
+                 Guess28, Guess29, Guess30, Guess31, Guess32, Guess33]
