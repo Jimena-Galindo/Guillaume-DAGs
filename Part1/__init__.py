@@ -30,6 +30,7 @@ class Player(BasePlayer):
     case_order = models.StringField()
     error = models.IntegerField(initial=0)
     original_color = models.IntegerField()
+    table = models.LongStringField()
 
 
 # FUNCTIONS
@@ -495,16 +496,14 @@ class Instructions(Page):
             player.case_order = str(participant.cases_ordered)
 
 
-class Machine(Page):
-    form_model = 'player'
-    form_fields = ['notes']
-
+class Load(Page):
+    timeout_seconds = 1
     @staticmethod
-    def vars_for_template(player: Player):
+    def before_next_page(player: Player, timeout_happened):
         r = player.round_number
         participant = player.participant
         # get the case corresponding to the round
-        case = participant.cases_ordered[r-1]
+        case = participant.cases_ordered[r - 1]
 
         original_color = random.randint(0, 1)
         player.original_color = original_color
@@ -518,11 +517,21 @@ class Machine(Page):
             evaluated = html_table_freqs_flipped(case[0], case[1])
             matrix = evaluated[1]
 
-        # save the case matrix as a string for the player. The cases are also saves as matrices at the participant level
+        # save the case matrix as a string for the player. The cases are also saved as matrices at the participant level
         player.case = str(matrix)
+        player.table = evaluated[0]
         participant.current_case = matrix
 
-        return dict(table=evaluated[0], round=r)
+
+
+class Machine(Page):
+    form_model = 'player'
+    form_fields = ['notes']
+
+    @staticmethod
+    def vars_for_template(player: Player):
+        r = player.round_number
+        return dict(table=player.table, round=r)
 
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
@@ -559,4 +568,4 @@ class ResultsWaitPage(WaitPage):
     pass
 
 
-page_sequence = [Instructions, Machine]
+page_sequence = [Instructions, Load, Machine]
