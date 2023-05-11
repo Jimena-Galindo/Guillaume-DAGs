@@ -102,16 +102,16 @@ vertical-align: center" >
                         <table class="table" style="text-align: center; vertical-align:middle">
                         <tr><th>Red Light</th><th>Blue Light</th><th>Other Lights</th></tr>
                             {{ if color == 1 }}
-                            <tr height="95px"><td> <div class="circle_red_off"></div> </td><td> &#x3f </td><td> &#x3f </td></tr>
-                            {{ else }}
                             <tr height="95px"><td> &#x3f </td><td> <div class="circle_blue_off"></div> </td><td> &#x3f </td></tr>
+                            {{ else }}
+                            <tr height="95px"><td> <div class="circle_red_off"></div> </td><td> &#x3f  </td><td> &#x3f </td></tr>
                             {{ endif }}
                         </table>
 
                     </td>
                     <td style="width: 10%; padding: 0; vertical-align:top"><h3></h3>
             <table class="table"> <tr><th>Guess the Sound:</th></tr>
-                <tr><td>{{formfield 'guess32'}} </td></tr></table>
+                <tr><td>{{formfield 'guess34'}} </td></tr></table>
         </td>
                 </tr>
             </table>
